@@ -1,0 +1,11 @@
+serializationLibrary: json_serializable
+pubVersion: 1.0.0
+pubName: api
+finalProperties: false
+modelPropertyNaming: original
+useDartFormatter: true
+additionalProperties:
+  dartPackage: api
+  pubVersion: '1.0.0'
+  pubName: api
+  finalProperties: false
