@@ -2,10 +2,8 @@ import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_master/core/providers/database_box_provider.dart';
 import 'package:flutter_master/core/providers/token_provider.dart';
 import 'package:flutter_master/data/source/local/shar_pref.dart';
-import 'package:flutter_master/presentation/offline/providers/sync_notifier.dart';
 import 'package:flutter_master/presentation/theme/config/app_color.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -39,8 +37,6 @@ class _SplashPageState extends ConsumerState<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    ref.read(databaseBoxProvider);
-    ref.read(syncNotifierProvider);
     return Scaffold(
       backgroundColor: AppColor.primary,
       body: Stack(

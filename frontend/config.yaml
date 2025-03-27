@@ -9,3 +9,4 @@ additionalProperties:
   pubVersion: '1.0.0'
   pubName: api
   finalProperties: false
+

@@ -11,7 +11,7 @@ class Constants {
       (element) => element.name == const String.fromEnvironment('FLAVOR'),
     ),
     baseUrl:
-        '${const String.fromEnvironment('BASE_URL')}:4000', //BASE_URL is specified in env json file
+        '${const String.fromEnvironment('BASE_URL')}:3000', //BASE_URL is specified in env json file
   );
 
   final Flavor flavor;

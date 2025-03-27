@@ -35,7 +35,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_master/core/exception/app_exception.dart';
 import 'package:flutter_master/core/extension/log.dart';
@@ -98,21 +98,23 @@ extension FutureExtension on Future {
           type: ErrorType.other,
         ),
       );
-    } on FirebaseException catch (e, _) {
-      e.logError();
-      final error = switch (e.code) {
-        'invalid-verification-code' => AppException(
-            message: 'Invalid OTP',
-            type: ErrorType.phoneLinkFirebase,
-          ),
-        'credential-already-in-use' => AppException(
-            message: e.message ?? '',
-            type: ErrorType.phoneLinkFirebase,
-          ),
-        _ => AppException(message: e.message ?? '', type: ErrorType.other)
-      };
-      return Future.error(error);
-    } on Exception catch (e, stack) {
+    }
+    // on FirebaseException catch (e, _) {
+    //   e.logError();
+    //   final error = switch (e.code) {
+    //     'invalid-verification-code' => AppException(
+    //         message: 'Invalid OTP',
+    //         type: ErrorType.phoneLinkFirebase,
+    //       ),
+    //     'credential-already-in-use' => AppException(
+    //         message: e.message ?? '',
+    //         type: ErrorType.phoneLinkFirebase,
+    //       ),
+    //     _ => AppException(message: e.message ?? '', type: ErrorType.other)
+    //   };
+    //   return Future.error(error);
+    // }
+    on Exception catch (e, stack) {
       e.logError();
       '$e\n$stack'.logError();
 

@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_master/presentation/routes/app_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../routes/app_router.dart';
 import '../shared/components/custom_dialog.dart';
 import 'section/bottom_nav_bar.dart';
 
@@ -51,9 +51,10 @@ class _MainPageState extends ConsumerState<MainPage> {
       onWillPop: _onWillPop,
       child: AutoTabsScaffold(
         routes: const [
-          HomeRoute(),
-          ContactsRoute(),
-          ProfileRoute(),
+          LoginRoute(),
+          LoginRoute(),
+          LoginRoute(),
+          // HomeRoute(),
         ],
         bottomNavigationBuilder: (context, tabsRouter) => BottomNavBar(
           selected: tabsRouter.activeIndex,

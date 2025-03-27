@@ -1,3 +1,4 @@
+// import 'package:api/api.dart';
 import 'package:api/api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_master/core/extension/future.dart';
@@ -35,10 +36,10 @@ class LoginNotifier extends StateNotifier<UserState<bool>> {
 
 // ignore: avoid_public_notifier_properties
   final TextEditingController usernameCtrl =
-      TextEditingController(text: 'johndoe@yopmail.com'.ifDebug);
+      TextEditingController(text: 'rohan@yopmail.com'.ifDebug);
 // ignore: avoid_public_notifier_properties
   final TextEditingController passwordCtrl =
-      TextEditingController(text: '12345678'.ifDebug);
+      TextEditingController(text: 'admin@123'.ifDebug);
 // ignore: avoid_public_notifier_properties
 
   final loginFormKey = GlobalKey<FormState>();
