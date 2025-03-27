@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const productRoutes = require('./routes/product_route');
 const userRouter = require('./routes/user_route');
+const eventRouter = require('./routes/event_route');
 const YAML = require("yamljs");
 const path = require("path");
 const swaggerUI = require('swagger-ui-express');
@@ -22,6 +23,7 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument)); // Swag
 // Use the product routes for handling product-related API calls
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRouter);
+app.use('/api/event', eventRouter);
 
 // Set the port for the server
 const port = 3000;

@@ -51,7 +51,7 @@ class _MainPageState extends ConsumerState<MainPage> {
       onWillPop: _onWillPop,
       child: AutoTabsScaffold(
         routes: const [
-          LoginRoute(),
+          HomeRoute(),
           LoginRoute(),
           LoginRoute(),
           // HomeRoute(),
