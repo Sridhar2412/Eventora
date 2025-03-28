@@ -1,10 +1,10 @@
 openapi: 3.0.0
 info:
-  title: User API
-  description: API for managing users
+  title: User & Event API
+  description: API for managing users and events
   version: 1.0.0
 servers:
-  - url:  http://192.168.68.145:3000
+  - url: http://192.168.68.145:3000
     description: Local server
 
 components:
@@ -118,9 +118,102 @@ components:
             accessToken:
               type: string
               example: 'your-access-token-here'
+    
+    EventsListResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+        code:
+          type: integer
+          example: 200
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+
+    # Event Schema
+    Event:
+      type: object
+      properties:
+        event_id:
+          type: integer
+          example: 1
+        event_name:
+          type: string
+          maxLength: 255
+          example: 'Tech Conference 2025'
+        event_date:
+          type: string
+          format: date
+          example: '2025-05-15'
+        city:
+          type: string
+          maxLength: 100
+          example: 'San Francisco'
+        description:
+          type: string
+          example: 'An exciting tech conference for developers'
+        category:
+          type: string
+          maxLength: 100
+          example: 'Technology'
+        latitude:
+          type: number
+          format: float
+          example: 37.7749
+        longitude:
+          type: number
+          format: float
+          example: -122.4194
+    
+    EventResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+        code:
+          type: integer
+          example: 200
+        data:
+          $ref: '#/components/schemas/Event'
+
+    # Request Body for Creating Event
+    CreateEventRequest:
+      type: object
+      properties:
+        event_name:
+          type: string
+          maxLength: 255
+          example: 'Tech Conference 2025'
+        event_date:
+          type: string
+          format: date
+          example: '2025-05-15'
+        city:
+          type: string
+          maxLength: 100
+          example: 'San Francisco'
+        description:
+          type: string
+          example: 'An exciting tech conference for developers'
+        category:
+          type: string
+          maxLength: 100
+          example: 'Technology'
+        latitude:
+          type: number
+          format: float
+          example: 37.7749
+        longitude:
+          type: number
+          format: float
+          example: -122.4194
 
 paths:
-  # Get All Users
+  # User Paths
   /api/users/list:
     get:
       operationId: 'getAllUsers'
@@ -142,7 +235,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
-  # Get User by ID
   /api/users/{id}:
     get:
       operationId: 'getUserById'
@@ -172,7 +264,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
-  # Create User
   /api/users/save:
     post:
       operationId: 'createUser'
@@ -200,7 +291,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
-  # User Login
   /api/users/login:
     post:
       operationId: 'loginUser'
@@ -223,6 +313,156 @@ paths:
                 $ref: '#/components/schemas/LoginResponse'
         '400':
           description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  # Event Paths
+  /api/event/list:
+    get:
+      operationId: 'getAllEvents'
+      summary: Get all events
+      description: Retrieve a list of all events
+      tags:
+        - Events
+      parameters:
+        - in: query
+          name: isUpcoming
+          required: false
+          description: If set to "true", only upcoming events will be returned
+          schema:
+            type: string
+            enum: [true, false]
+            example: "true"
+      responses:
+        '200':
+          description: A list of events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventsListResponse'
+        '400':
+          description: Error retrieving events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/event/save:
+    post:
+      operationId: 'createEvent'
+      summary: Create a new event
+      description: Create a new event by providing event details
+      tags:
+        - Events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEventRequest'
+      responses:
+        '201':
+          description: Event created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventResponse'
+        '400':
+          description: Error creating event
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+  /api/event/{id}:
+    get:
+      operationId: 'getEventById'
+      summary: Get event by ID
+      description: Retrieve an event by its unique ID
+      tags:
+        - Events
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The ID of the event
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: An event object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventResponse'
+        '400':
+          description: Event not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    patch:
+      operationId: 'updateEvent'
+      summary: Update event by ID
+      description: Update the event details for a given event ID
+      tags:
+        - Events
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The ID of the event to update
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEventRequest'
+      responses:
+        '200':
+          description: Event updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventResponse'
+        '400':
+          description: Error updating event
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      operationId: 'deleteEvent'
+      summary: Delete event by ID
+      description: Delete the event by its unique ID
+      tags:
+        - Events
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The ID of the event to delete
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Event deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventResponse'
+        '400':
+          description: Error deleting event
           content:
             application/json:
               schema:

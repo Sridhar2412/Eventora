@@ -1,6 +1,10 @@
+import 'package:api/src/model/create_event_request.dart';
 import 'package:api/src/model/create_user_request.dart';
 import 'package:api/src/model/error.dart';
 import 'package:api/src/model/error_error.dart';
+import 'package:api/src/model/event.dart';
+import 'package:api/src/model/event_response.dart';
+import 'package:api/src/model/events_list_response.dart';
 import 'package:api/src/model/login_request.dart';
 import 'package:api/src/model/login_response.dart';
 import 'package:api/src/model/login_response_data.dart';
@@ -27,6 +31,9 @@ ReturnType deserialize<ReturnType, BaseType>(dynamic value, String targetType,
       return (valueString == 'true' || valueString == '1') as ReturnType;
     case 'double':
       return (value is double ? value : double.parse('$value')) as ReturnType;
+    case 'CreateEventRequest':
+      return CreateEventRequest.fromJson(value as Map<String, dynamic>)
+          as ReturnType;
     case 'CreateUserRequest':
       return CreateUserRequest.fromJson(value as Map<String, dynamic>)
           as ReturnType;
@@ -34,6 +41,14 @@ ReturnType deserialize<ReturnType, BaseType>(dynamic value, String targetType,
       return Error.fromJson(value as Map<String, dynamic>) as ReturnType;
     case 'ErrorError':
       return ErrorError.fromJson(value as Map<String, dynamic>) as ReturnType;
+    case 'Event':
+      return Event.fromJson(value as Map<String, dynamic>) as ReturnType;
+    case 'EventResponse':
+      return EventResponse.fromJson(value as Map<String, dynamic>)
+          as ReturnType;
+    case 'EventsListResponse':
+      return EventsListResponse.fromJson(
+          {"status": "OK", "code": 200, 'data': value}) as ReturnType;
     case 'LoginRequest':
       return LoginRequest.fromJson(value as Map<String, dynamic>) as ReturnType;
     case 'LoginResponse':

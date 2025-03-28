@@ -3,10 +3,10 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:api/src/model/user.dart';
+import 'package:api/src/model/event.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'api_users_list_get200_response.g.dart';
+part 'events_list_response.g.dart';
 
 @JsonSerializable(
   checked: true,
@@ -14,9 +14,9 @@ part 'api_users_list_get200_response.g.dart';
   disallowUnrecognizedKeys: false,
   explicitToJson: true,
 )
-class ApiUsersListGet200Response {
-  /// Returns a new [ApiUsersListGet200Response] instance.
-  ApiUsersListGet200Response({
+class EventsListResponse {
+  /// Returns a new [EventsListResponse] instance.
+  EventsListResponse({
     this.status,
     this.code,
     this.data,
@@ -41,12 +41,12 @@ class ApiUsersListGet200Response {
     required: false,
     includeIfNull: false,
   )
-  List<User>? data;
+  List<Event>? data;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ApiUsersListGet200Response &&
+      other is EventsListResponse &&
           other.status == status &&
           other.code == code &&
           other.data == data;
@@ -54,10 +54,10 @@ class ApiUsersListGet200Response {
   @override
   int get hashCode => status.hashCode + code.hashCode + data.hashCode;
 
-  factory ApiUsersListGet200Response.fromJson(Map<String, dynamic> json) =>
-      _$ApiUsersListGet200ResponseFromJson(json);
+  factory EventsListResponse.fromJson(Map<String, dynamic> json) =>
+      _$EventsListResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ApiUsersListGet200ResponseToJson(this);
+  Map<String, dynamic> toJson() => _$EventsListResponseToJson(this);
 
   @override
   String toString() {

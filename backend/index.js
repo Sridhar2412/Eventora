@@ -1,11 +1,11 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const productRoutes = require('./routes/product_route');
-const userRouter = require('./routes/user_route');
-const eventRouter = require('./routes/event_route');
+const productRoutes = require("./routes/product_route");
+const userRouter = require("./routes/user_route");
+const eventRouter = require("./routes/event_route");
 const YAML = require("yamljs");
 const path = require("path");
-const swaggerUI = require('swagger-ui-express');
+const swaggerUI = require("swagger-ui-express");
 // Middleware to parse incoming JSON bodies
 app.use(express.json());
 
@@ -14,19 +14,19 @@ app.use(express.json());
 //   console.log(`Server is running on http://localhost:${port}`);
 // });
 
-const swaggerDocument = YAML.load(path.join('../swagger.yaml'));
+const swaggerDocument = YAML.load(path.join("../swagger.yaml"));
 
 // Swagger Setup
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument)); // Swagger UI route
-
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument)); // Swagger UI route
 
 // Use the product routes for handling product-related API calls
-app.use('/api/products', productRoutes);
-app.use('/api/users', userRouter);
-app.use('/api/event', eventRouter);
+app.use("/api/products", productRoutes);
+app.use("/api/users", userRouter);
+app.use("/api/event", eventRouter);
 
 // Set the port for the server
 const port = 3000;
 
-
-app.listen(port, () => console.log(`Swagger at http://localhost:${port}/api-docs`));
+app.listen(port, () =>
+  console.log(`Swagger at http://192.168.68.145:${port}/api-docs`)
+);

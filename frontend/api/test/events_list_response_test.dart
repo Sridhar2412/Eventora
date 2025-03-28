@@ -1,13 +1,12 @@
 import 'package:test/test.dart';
 import 'package:api/api.dart';
 
-// tests for ApiUsersListGet200Response
+// tests for EventsListResponse
 void main() {
-  final ApiUsersListGet200Response?
-      instance = /* ApiUsersListGet200Response(...) */ null;
+  final EventsListResponse? instance = /* EventsListResponse(...) */ null;
   // TODO add properties to the entity
 
-  group(ApiUsersListGet200Response, () {
+  group(EventsListResponse, () {
     // String status
     test('to test the property `status`', () async {
       // TODO
@@ -18,7 +17,7 @@ void main() {
       // TODO
     });
 
-    // List<User> data
+    // List<Event> data
     test('to test the property `data`', () async {
       // TODO
     });
