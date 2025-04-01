@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_master/core/extension/context.dart';
 import 'package:flutter_master/core/extension/widget.dart';
 import 'package:flutter_master/presentation/home/provider/events_notifier.dart';
+import 'package:flutter_master/presentation/routes/app_router.dart';
 import 'package:flutter_master/presentation/shared/components/app_text_theme.dart';
 import 'package:flutter_master/presentation/shared/components/change_date_time.dart';
 import 'package:flutter_master/presentation/shared/components/custom_app_bar.dart';
@@ -103,7 +104,33 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
               Text(
                 state.data.myEvent?.description ?? '',
                 style: AppTextTheme.medium14,
-              ).padBottom(10),
+              ).padBottom(),
+              InkWell(
+                onTap: () => context.pushRoute(ViewOnMapRoute()),
+                child: Container(
+                    height: 60,
+                    width: context.width,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: AppColor.primary),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          size: 25,
+                          color: AppColor.primary,
+                        ).padRight(10),
+                        Text(
+                          'View On Map',
+                          style: AppTextTheme.medium14
+                              .copyWith(color: AppColor.primary),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    )),
+              )
             ],
           ).padHor(),
           Gap(20)
