@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_master/presentation/auth/login.dart';
 import 'package:flutter_master/presentation/auth/register_page.dart';
+import 'package:flutter_master/presentation/events/event_detail%20page.dart';
 import 'package:flutter_master/presentation/home/home.dart';
 import 'package:flutter_master/presentation/main_page/main_page.dart';
 import 'package:flutter_master/presentation/routes/guard/auth_guard.dart';
@@ -26,6 +28,9 @@ class AppRouter extends _$AppRouter {
         ),
         AutoRoute(
           page: RegisterRoute.page,
+        ),
+        AutoRoute(
+          page: EventDetailRoute.page,
         ),
         AutoRoute(
           page: MainRoute.page,

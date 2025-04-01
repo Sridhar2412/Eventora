@@ -146,7 +146,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getEventById**
-> EventResponse getEventById(id)
+> Event getEventById(id)
 
 Get event by ID
 
@@ -175,7 +175,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EventResponse**](EventResponse.md)
+[**Event**](Event.md)
 
 ### Authorization
 

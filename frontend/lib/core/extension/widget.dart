@@ -37,6 +37,10 @@ extension PaddingExt on Widget {
         padding: EdgeInsets.only(left: padding ?? 20),
         child: this,
       );
+  Padding padBottom([double? padding]) => Padding(
+        padding: EdgeInsets.only(bottom: padding ?? 20),
+        child: this,
+      );
   Padding padRight([double? padding]) => Padding(
         padding: EdgeInsets.only(right: padding ?? 20),
         child: this,

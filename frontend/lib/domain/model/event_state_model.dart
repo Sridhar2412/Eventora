@@ -9,6 +9,7 @@ class EventStateModel with _$EventStateModel {
   const factory EventStateModel({
     @Default(<Event>[]) List<Event> eventList,
     @Default(<Event>[]) List<Event> upcomingEventList,
+    Event? myEvent,
   }) = _EventStateModel;
 
   factory EventStateModel.fromJson(Map<String, dynamic> json) =>

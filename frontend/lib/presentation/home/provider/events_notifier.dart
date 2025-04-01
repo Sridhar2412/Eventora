@@ -66,4 +66,14 @@ class EventNotifier extends StateNotifier<UserState<EventStateModel>> {
     }
     return res;
   }
+
+  Future<String?> getEventById({required int eventId}) async {
+    String? res;
+
+    final result = await _repo.getEventById(id: eventId).guard<Event>();
+
+    final newData = state.data.copyWith(myEvent: result);
+    state = state.copyWith(error: '', loading: false, data: newData);
+    return res;
+  }
 }

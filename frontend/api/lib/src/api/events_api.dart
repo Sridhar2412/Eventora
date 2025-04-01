@@ -11,6 +11,7 @@ import 'package:dio/dio.dart';
 
 import 'package:api/src/model/create_event_request.dart';
 import 'package:api/src/model/error.dart';
+import 'package:api/src/model/event.dart';
 import 'package:api/src/model/event_response.dart';
 import 'package:api/src/model/events_list_response.dart';
 
@@ -277,9 +278,9 @@ class EventsApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [EventResponse] as data
+  /// Returns a [Future] containing a [Response] with a [Event] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<EventResponse>> getEventById({
+  Future<Response<Event>> getEventById({
     required int id,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -309,14 +310,13 @@ class EventsApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    EventResponse? _responseData;
+    Event? _responseData;
 
     try {
       final rawData = _response.data;
       _responseData = rawData == null
           ? null
-          : deserialize<EventResponse, EventResponse>(rawData, 'EventResponse',
-              growable: true);
+          : deserialize<Event, Event>(rawData, 'Event', growable: true);
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -327,7 +327,7 @@ class EventsApi {
       );
     }
 
-    return Response<EventResponse>(
+    return Response<Event>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
