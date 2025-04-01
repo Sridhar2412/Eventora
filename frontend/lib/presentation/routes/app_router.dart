@@ -3,6 +3,7 @@ import 'package:flutter_master/presentation/auth/login.dart';
 import 'package:flutter_master/presentation/auth/register_page.dart';
 import 'package:flutter_master/presentation/home/home.dart';
 import 'package:flutter_master/presentation/main_page/main_page.dart';
+import 'package:flutter_master/presentation/routes/guard/auth_guard.dart';
 import 'package:flutter_master/presentation/splash/splash.dart';
 import 'package:flutter_master/presentation/theme/theme_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,12 +37,16 @@ class AppRouter extends _$AppRouter {
               page: HomeRoute.page,
             ),
             AutoRoute(
-              page: LoginRoute.page,
+              page: HomeRoute.page,
             ),
             AutoRoute(
-              page: LoginRoute.page,
+              page: HomeRoute.page,
             ),
           ],
+        ),
+        AutoRoute(
+          page: HomeRoute.page,
+          guards: [AuthGuard(_ref)],
         ),
       ];
 }

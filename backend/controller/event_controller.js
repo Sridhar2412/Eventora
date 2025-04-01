@@ -1,5 +1,5 @@
 const Event = require("../models/event_model"); // Importing the Event model
-
+const {getEventListQuery,getUpcomingEventListQuery}= require("../queries/query")
 // Controller function to handle GET /events request
 const getEvents = async (req, res) => {
   try {
@@ -7,12 +7,11 @@ const getEvents = async (req, res) => {
     const { isUpcoming } = req.query; // Assuming the flag is passed as a query parameter (e.g., /events?isUpcoming=true)
 
     // Define the query based on the isUpcoming flag
-    let query = "SELECT * FROM events";
+    let query = getEventListQuery;
 
     // If isUpcoming is true, filter for upcoming events
     if (isUpcoming === "true") {
-      query =
-        "SELECT * FROM events WHERE event_date > CURDATE() ORDER BY event_date ASC";
+      query =getUpcomingEventListQuery;
     }
 
     // Execute the query (assuming you're using Sequelize ORM or raw SQL query)

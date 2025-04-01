@@ -47,8 +47,8 @@ ReturnType deserialize<ReturnType, BaseType>(dynamic value, String targetType,
       return EventResponse.fromJson(value as Map<String, dynamic>)
           as ReturnType;
     case 'EventsListResponse':
-      return EventsListResponse.fromJson(
-          {"status": "OK", "code": 200, 'data': value}) as ReturnType;
+      return EventsListResponse.fromJson(value as Map<String, dynamic>)
+          as ReturnType;
     case 'LoginRequest':
       return LoginRequest.fromJson(value as Map<String, dynamic>) as ReturnType;
     case 'LoginResponse':

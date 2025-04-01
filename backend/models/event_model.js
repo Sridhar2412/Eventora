@@ -1,7 +1,8 @@
 const { Sequelize, DataTypes } = require("sequelize");
+const {dbName, dbHost, dbPort, dbUser, dbPass, jwtSecret} = require('../services/config')
 
 // Initialize Sequelize with MySQL connection
-const sequelize = new Sequelize("mysql://root:root@localhost:3306/test"); // Replace with your DB credentials
+const sequelize = new Sequelize(`mysql://${dbUser}:${dbPass}@${dbHost}:${dbPort}/${dbName}`); // Replace with your DB credentials
 
 const Event = sequelize.define(
   "Event",

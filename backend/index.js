@@ -28,5 +28,6 @@ app.use("/api/event", eventRouter);
 const port = 3000;
 
 app.listen(port, () =>
-  console.log(`Swagger at http://192.168.68.145:${port}/api-docs`)
+  console.log(`Swagger at http://192.168.0.103:${port}/api-docs`)
+  // console.log(`Swagger at http://192.168.68.145:${port}/api-docs`)
 );

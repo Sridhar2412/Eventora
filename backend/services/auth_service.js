@@ -1,6 +1,5 @@
 const jwt=require('jsonwebtoken');
-
-const secretKey='$R!|)#@R';
+const { jwtSecret } = require('../services/config')
 
 function setUser(user){
     return jwt.sign({
@@ -8,13 +7,13 @@ function setUser(user){
         email:user.email,
         fullname:user.fullname,
         mobile:user.mobile,
-    },secretKey);
+    },jwtSecret);
 }
 
 function getUserData(token, res){
     if(!token) return null;
     try{
-    const user= jwt.verify(token, secretKey);
+    const user= jwt.verify(token, jwtSecret);
     return res.status(200).json({"status":"OK","code":"200","data":user});
     }catch(e){
     return res.status(400).json({"status":"ERROR","code":"400", 'error':{ 'message':`${e}`}});

@@ -12,7 +12,7 @@ import 'package:api/src/api/events_api.dart';
 import 'package:api/src/api/users_api.dart';
 
 class Api {
-  static const String basePath = r'http://192.168.68.145:3000';
+  static const String basePath = r'http://192.168.0.103:3000';
 
   final Dio dio;
   Api({

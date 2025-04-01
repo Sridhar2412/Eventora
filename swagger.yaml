@@ -4,7 +4,8 @@ info:
   description: API for managing users and events
   version: 1.0.0
 servers:
-  - url: http://192.168.68.145:3000
+  - url: http://192.168.0.103:3000
+    # - url: http://192.168.68.145:3000
     description: Local server
 
 components:
@@ -28,7 +29,7 @@ components:
         password:
           type: string
           example: 'password123'
-    
+
     # Request Body for Creating User
     CreateUserRequest:
       type: object
@@ -118,7 +119,7 @@ components:
             accessToken:
               type: string
               example: 'your-access-token-here'
-    
+
     EventsListResponse:
       type: object
       properties:
@@ -167,7 +168,7 @@ components:
           type: number
           format: float
           example: -122.4194
-    
+
     EventResponse:
       type: object
       properties:
@@ -334,7 +335,7 @@ paths:
           schema:
             type: string
             enum: [true, false]
-            example: "true"
+            example: 'true'
       responses:
         '200':
           description: A list of events
@@ -375,7 +376,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
 
   /api/event/{id}:
     get:
