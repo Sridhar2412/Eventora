@@ -73,14 +73,14 @@ class Event {
     required: false,
     includeIfNull: false,
   )
-  double? latitude;
+  String? latitude;
 
   @JsonKey(
     name: r'longitude',
     required: false,
     includeIfNull: false,
   )
-  double? longitude;
+  String? longitude;
 
   @override
   bool operator ==(Object other) =>

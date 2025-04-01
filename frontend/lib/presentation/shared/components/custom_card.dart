@@ -7,15 +7,17 @@ import '../../../core/extension/widget.dart';
 import '../../theme/config/app_color.dart';
 
 class CustomCard extends ConsumerWidget {
-  const CustomCard({super.key, required this.child, this.padding});
+  const CustomCard(
+      {super.key, required this.child, this.padding, this.backgroundColor});
   final Widget child;
   final double? padding;
+  final Color? backgroundColor;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       width: context.width,
       decoration: BoxDecoration(
-        color: AppColor.white,
+        color: backgroundColor ?? AppColor.white,
         boxShadow: AppStyle.shadow,
         borderRadius: BorderRadius.circular(10),
       ),

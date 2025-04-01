@@ -1,4 +1,5 @@
 import 'package:api/src/model/create_event_request.dart';
+import 'package:api/src/model/create_predefined_request.dart';
 import 'package:api/src/model/create_user_request.dart';
 import 'package:api/src/model/error.dart';
 import 'package:api/src/model/error_error.dart';
@@ -8,6 +9,10 @@ import 'package:api/src/model/events_list_response.dart';
 import 'package:api/src/model/login_request.dart';
 import 'package:api/src/model/login_response.dart';
 import 'package:api/src/model/login_response_data.dart';
+import 'package:api/src/model/predefined.dart';
+import 'package:api/src/model/predefined_list_request.dart';
+import 'package:api/src/model/predefined_list_response.dart';
+import 'package:api/src/model/predefined_response.dart';
 import 'package:api/src/model/user.dart';
 import 'package:api/src/model/user_response.dart';
 import 'package:api/src/model/users_list_response.dart';
@@ -34,6 +39,9 @@ ReturnType deserialize<ReturnType, BaseType>(dynamic value, String targetType,
     case 'CreateEventRequest':
       return CreateEventRequest.fromJson(value as Map<String, dynamic>)
           as ReturnType;
+    case 'CreatePredefinedRequest':
+      return CreatePredefinedRequest.fromJson(value as Map<String, dynamic>)
+          as ReturnType;
     case 'CreateUserRequest':
       return CreateUserRequest.fromJson(value as Map<String, dynamic>)
           as ReturnType;
@@ -47,8 +55,8 @@ ReturnType deserialize<ReturnType, BaseType>(dynamic value, String targetType,
       return EventResponse.fromJson(value as Map<String, dynamic>)
           as ReturnType;
     case 'EventsListResponse':
-      return EventsListResponse.fromJson(value as Map<String, dynamic>)
-          as ReturnType;
+      return EventsListResponse.fromJson(
+          {"status": "OK", "code": 200, "data": value}) as ReturnType;
     case 'LoginRequest':
       return LoginRequest.fromJson(value as Map<String, dynamic>) as ReturnType;
     case 'LoginResponse':
@@ -56,6 +64,17 @@ ReturnType deserialize<ReturnType, BaseType>(dynamic value, String targetType,
           as ReturnType;
     case 'LoginResponseData':
       return LoginResponseData.fromJson(value as Map<String, dynamic>)
+          as ReturnType;
+    case 'Predefined':
+      return Predefined.fromJson(value as Map<String, dynamic>) as ReturnType;
+    case 'PredefinedListRequest':
+      return PredefinedListRequest.fromJson(value as Map<String, dynamic>)
+          as ReturnType;
+    case 'PredefinedListResponse':
+      return PredefinedListResponse.fromJson(
+          {"status": "OK", "code": 200, "data": value}) as ReturnType;
+    case 'PredefinedResponse':
+      return PredefinedResponse.fromJson(value as Map<String, dynamic>)
           as ReturnType;
     case 'User':
       return User.fromJson(value as Map<String, dynamic>) as ReturnType;

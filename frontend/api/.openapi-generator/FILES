@@ -4,6 +4,7 @@ analysis_options.yaml
 build.yaml
 doc/AuthApi.md
 doc/CreateEventRequest.md
+doc/CreatePredefinedRequest.md
 doc/CreateUserRequest.md
 doc/Error.md
 doc/ErrorError.md
@@ -14,6 +15,11 @@ doc/EventsListResponse.md
 doc/LoginRequest.md
 doc/LoginResponse.md
 doc/LoginResponseData.md
+doc/Predefined.md
+doc/PredefinedApi.md
+doc/PredefinedListRequest.md
+doc/PredefinedListResponse.md
+doc/PredefinedResponse.md
 doc/User.md
 doc/UserResponse.md
 doc/UsersApi.md
@@ -22,6 +28,7 @@ lib/api.dart
 lib/src/api.dart
 lib/src/api/auth_api.dart
 lib/src/api/events_api.dart
+lib/src/api/predefined_api.dart
 lib/src/api/users_api.dart
 lib/src/auth/api_key_auth.dart
 lib/src/auth/auth.dart
@@ -30,6 +37,7 @@ lib/src/auth/bearer_auth.dart
 lib/src/auth/oauth.dart
 lib/src/deserialize.dart
 lib/src/model/create_event_request.dart
+lib/src/model/create_predefined_request.dart
 lib/src/model/create_user_request.dart
 lib/src/model/error.dart
 lib/src/model/error_error.dart
@@ -39,7 +47,17 @@ lib/src/model/events_list_response.dart
 lib/src/model/login_request.dart
 lib/src/model/login_response.dart
 lib/src/model/login_response_data.dart
+lib/src/model/predefined.dart
+lib/src/model/predefined_list_request.dart
+lib/src/model/predefined_list_response.dart
+lib/src/model/predefined_response.dart
 lib/src/model/user.dart
 lib/src/model/user_response.dart
 lib/src/model/users_list_response.dart
 pubspec.yaml
+test/create_predefined_request_test.dart
+test/predefined_api_test.dart
+test/predefined_list_request_test.dart
+test/predefined_list_response_test.dart
+test/predefined_response_test.dart
+test/predefined_test.dart

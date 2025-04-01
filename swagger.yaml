@@ -212,6 +212,81 @@ components:
           type: number
           format: float
           example: -122.4194
+    
+    Predefined:
+      type: object
+      properties:
+        predefinedId:
+          type: integer
+          example: 1
+        parentId:
+          type: integer
+          example: 0
+        entityType:
+          type: string
+          example: 'Category'
+        name:
+          type: string
+          example: 'Technology'
+        code:
+          type: string
+          example: 'TECH001'
+
+    PredefinedListRequest:
+      type: object
+      properties:
+        entityType:
+          type: string
+          enum: [EVENT-CATEGORY]
+          example: "EVENT-CATEGORY"
+      required:
+        - entityType
+
+    # Request Body for Creating Predefined
+    CreatePredefinedRequest:
+      type: object
+      properties:
+        parentId:
+          type: integer
+          example: 0
+        entityType:
+          type: string
+          example: 'Category'
+        name:
+          type: string
+          example: 'Technology'
+        code:
+          type: string
+          example: 'TECH001'
+
+    # Success Response for Predefined
+    PredefinedResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+        code:
+          type: integer
+          example: 200
+        data:
+          $ref: '#/components/schemas/Predefined'
+
+    # Success Response for List of Predefined
+    PredefinedListResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+        code:
+          type: integer
+          example: 200
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Predefined'
+
 
 paths:
   # User Paths
@@ -467,3 +542,154 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+
+  # Predefined Paths
+  /api/predefined/list-by-type:
+    post:
+      operationId: 'getPredefinedList'
+      summary: Get list of predefined entities
+      description: Retrieve a list of predefined entities based on an optional filter for entityType
+      tags:
+        - Predefined
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PredefinedListRequest'
+      responses:
+        '200':
+          description: A list of predefined entities
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PredefinedListResponse'
+        '400':
+          description: Error retrieving predefined entities
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/predefined/{id}:
+    get:
+      operationId: 'getPredefinedById'
+      summary: Get predefined entity by ID
+      description: Retrieve a predefined entity by its unique ID
+      tags:
+        - Predefined
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The ID of the predefined entity
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: A predefined entity object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PredefinedResponse'
+        '400':
+          description: Predefined entity not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    
+    put:
+      operationId: 'updatePredefined'
+      summary: Update predefined entity by ID
+      description: Update the predefined entity details for a given ID
+      tags:
+        - Predefined
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The ID of the predefined entity to update
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePredefinedRequest'
+      responses:
+        '200':
+          description: Predefined entity updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PredefinedResponse'
+        '400':
+          description: Error updating predefined entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      operationId: 'deletePredefined'
+      summary: Delete predefined entity by ID
+      description: Delete the predefined entity by its unique ID
+      tags:
+        - Predefined
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The ID of the predefined entity to delete
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Predefined entity deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PredefinedResponse'
+        '400':
+          description: Error deleting predefined entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+  /api/predefined/save:
+    post:
+      operationId: 'createPredefined'
+      summary: Create a new predefined entity
+      description: Create a new predefined entity by providing details
+      tags:
+        - Predefined
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePredefinedRequest'
+      responses:
+        '201':
+          description: Predefined entity created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PredefinedResponse'
+        '400':
+          description: Error creating predefined entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+
+  

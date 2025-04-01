@@ -72,6 +72,11 @@ Class | Method | HTTP request | Description
 [*EventsApi*](doc/EventsApi.md) | [**getAllEvents**](doc/EventsApi.md#getallevents) | **GET** /api/event/list | Get all events
 [*EventsApi*](doc/EventsApi.md) | [**getEventById**](doc/EventsApi.md#geteventbyid) | **GET** /api/event/{id} | Get event by ID
 [*EventsApi*](doc/EventsApi.md) | [**updateEvent**](doc/EventsApi.md#updateevent) | **PATCH** /api/event/{id} | Update event by ID
+[*PredefinedApi*](doc/PredefinedApi.md) | [**createPredefined**](doc/PredefinedApi.md#createpredefined) | **POST** /api/predefined/save | Create a new predefined entity
+[*PredefinedApi*](doc/PredefinedApi.md) | [**deletePredefined**](doc/PredefinedApi.md#deletepredefined) | **DELETE** /api/predefined/{id} | Delete predefined entity by ID
+[*PredefinedApi*](doc/PredefinedApi.md) | [**getPredefinedById**](doc/PredefinedApi.md#getpredefinedbyid) | **GET** /api/predefined/{id} | Get predefined entity by ID
+[*PredefinedApi*](doc/PredefinedApi.md) | [**getPredefinedList**](doc/PredefinedApi.md#getpredefinedlist) | **POST** /api/predefined/list-by-type | Get list of predefined entities
+[*PredefinedApi*](doc/PredefinedApi.md) | [**updatePredefined**](doc/PredefinedApi.md#updatepredefined) | **PUT** /api/predefined/{id} | Update predefined entity by ID
 [*UsersApi*](doc/UsersApi.md) | [**createUser**](doc/UsersApi.md#createuser) | **POST** /api/users/save | Create a new user
 [*UsersApi*](doc/UsersApi.md) | [**getAllUsers**](doc/UsersApi.md#getallusers) | **GET** /api/users/list | Get all users
 [*UsersApi*](doc/UsersApi.md) | [**getUserById**](doc/UsersApi.md#getuserbyid) | **GET** /api/users/{id} | Get user by ID
@@ -80,6 +85,7 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [CreateEventRequest](doc/CreateEventRequest.md)
+ - [CreatePredefinedRequest](doc/CreatePredefinedRequest.md)
  - [CreateUserRequest](doc/CreateUserRequest.md)
  - [Error](doc/Error.md)
  - [ErrorError](doc/ErrorError.md)
@@ -89,6 +95,10 @@ Class | Method | HTTP request | Description
  - [LoginRequest](doc/LoginRequest.md)
  - [LoginResponse](doc/LoginResponse.md)
  - [LoginResponseData](doc/LoginResponseData.md)
+ - [Predefined](doc/Predefined.md)
+ - [PredefinedListRequest](doc/PredefinedListRequest.md)
+ - [PredefinedListResponse](doc/PredefinedListResponse.md)
+ - [PredefinedResponse](doc/PredefinedResponse.md)
  - [User](doc/User.md)
  - [UserResponse](doc/UserResponse.md)
  - [UsersListResponse](doc/UsersListResponse.md)
