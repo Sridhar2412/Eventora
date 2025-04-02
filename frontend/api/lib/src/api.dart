@@ -10,6 +10,7 @@ import 'package:api/src/auth/oauth.dart';
 import 'package:api/src/api/auth_api.dart';
 import 'package:api/src/api/events_api.dart';
 import 'package:api/src/api/predefined_api.dart';
+import 'package:api/src/api/rsvp_api.dart';
 import 'package:api/src/api/users_api.dart';
 
 class Api {
@@ -89,6 +90,12 @@ class Api {
   /// by doing that all interceptors will not be executed
   PredefinedApi getPredefinedApi() {
     return PredefinedApi(dio);
+  }
+
+  /// Get RSVPApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  RSVPApi getRSVPApi() {
+    return RSVPApi(dio);
   }
 
   /// Get UsersApi instance, base route and serializer can be overridden by a given but be careful,

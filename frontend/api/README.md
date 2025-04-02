@@ -78,6 +78,8 @@ Class | Method | HTTP request | Description
 [*PredefinedApi*](doc/PredefinedApi.md) | [**getPredefinedById**](doc/PredefinedApi.md#getpredefinedbyid) | **GET** /api/predefined/{id} | Get predefined entity by ID
 [*PredefinedApi*](doc/PredefinedApi.md) | [**getPredefinedList**](doc/PredefinedApi.md#getpredefinedlist) | **POST** /api/predefined/list-by-type | Get list of predefined entities
 [*PredefinedApi*](doc/PredefinedApi.md) | [**updatePredefined**](doc/PredefinedApi.md#updatepredefined) | **PUT** /api/predefined/{id} | Update predefined entity by ID
+[*RSVPApi*](doc/RSVPApi.md) | [**apiRsvpGetMyRsvpStatusPost**](doc/RSVPApi.md#apirsvpgetmyrsvpstatuspost) | **POST** /api/rsvp/getMyRsvpStatus | Get RSVP status for a user and event
+[*RSVPApi*](doc/RSVPApi.md) | [**apiRsvpUpdateRsvpPost**](doc/RSVPApi.md#apirsvpupdatersvppost) | **POST** /api/rsvp/updateRsvp | Update the RSVP status for a user and event
 [*UsersApi*](doc/UsersApi.md) | [**createUser**](doc/UsersApi.md#createuser) | **POST** /api/users/save | Create a new user
 [*UsersApi*](doc/UsersApi.md) | [**getAllUsers**](doc/UsersApi.md#getallusers) | **GET** /api/users/list | Get all users
 [*UsersApi*](doc/UsersApi.md) | [**getUserById**](doc/UsersApi.md#getuserbyid) | **GET** /api/users/{id} | Get user by ID
@@ -102,6 +104,8 @@ Class | Method | HTTP request | Description
  - [PredefinedListRequest](doc/PredefinedListRequest.md)
  - [PredefinedListResponse](doc/PredefinedListResponse.md)
  - [PredefinedResponse](doc/PredefinedResponse.md)
+ - [RsvpStatusResponse](doc/RsvpStatusResponse.md)
+ - [UpdateRsvpRequest](doc/UpdateRsvpRequest.md)
  - [User](doc/User.md)
  - [UserResponse](doc/UserResponse.md)
  - [UsersListResponse](doc/UsersListResponse.md)

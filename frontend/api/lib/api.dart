@@ -11,6 +11,7 @@ export 'package:api/src/auth/oauth.dart';
 export 'package:api/src/api/auth_api.dart';
 export 'package:api/src/api/events_api.dart';
 export 'package:api/src/api/predefined_api.dart';
+export 'package:api/src/api/rsvp_api.dart';
 export 'package:api/src/api/users_api.dart';
 
 export 'package:api/src/model/create_event_request.dart';
@@ -30,6 +31,8 @@ export 'package:api/src/model/predefined.dart';
 export 'package:api/src/model/predefined_list_request.dart';
 export 'package:api/src/model/predefined_list_response.dart';
 export 'package:api/src/model/predefined_response.dart';
+export 'package:api/src/model/rsvp_status_response.dart';
+export 'package:api/src/model/update_rsvp_request.dart';
 export 'package:api/src/model/user.dart';
 export 'package:api/src/model/user_response.dart';
 export 'package:api/src/model/users_list_response.dart';

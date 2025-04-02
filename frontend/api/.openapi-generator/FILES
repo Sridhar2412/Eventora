@@ -22,6 +22,9 @@ doc/PredefinedApi.md
 doc/PredefinedListRequest.md
 doc/PredefinedListResponse.md
 doc/PredefinedResponse.md
+doc/RSVPApi.md
+doc/RsvpStatusResponse.md
+doc/UpdateRsvpRequest.md
 doc/User.md
 doc/UserResponse.md
 doc/UsersApi.md
@@ -31,6 +34,7 @@ lib/src/api.dart
 lib/src/api/auth_api.dart
 lib/src/api/events_api.dart
 lib/src/api/predefined_api.dart
+lib/src/api/rsvp_api.dart
 lib/src/api/users_api.dart
 lib/src/auth/api_key_auth.dart
 lib/src/auth/auth.dart
@@ -55,9 +59,9 @@ lib/src/model/predefined.dart
 lib/src/model/predefined_list_request.dart
 lib/src/model/predefined_list_response.dart
 lib/src/model/predefined_response.dart
+lib/src/model/rsvp_status_response.dart
+lib/src/model/update_rsvp_request.dart
 lib/src/model/user.dart
 lib/src/model/user_response.dart
 lib/src/model/users_list_response.dart
 pubspec.yaml
-test/event_list_by_category_request_test.dart
-test/event_list_by_category_response_test.dart

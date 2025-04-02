@@ -15,6 +15,8 @@ import 'package:api/src/model/predefined.dart';
 import 'package:api/src/model/predefined_list_request.dart';
 import 'package:api/src/model/predefined_list_response.dart';
 import 'package:api/src/model/predefined_response.dart';
+import 'package:api/src/model/rsvp_status_response.dart';
+import 'package:api/src/model/update_rsvp_request.dart';
 import 'package:api/src/model/user.dart';
 import 'package:api/src/model/user_response.dart';
 import 'package:api/src/model/users_list_response.dart';
@@ -83,6 +85,12 @@ ReturnType deserialize<ReturnType, BaseType>(dynamic value, String targetType,
           {"status": "OK", "code": 200, "data": value}) as ReturnType;
     case 'PredefinedResponse':
       return PredefinedResponse.fromJson(value as Map<String, dynamic>)
+          as ReturnType;
+    case 'RsvpStatusResponse':
+      return RsvpStatusResponse.fromJson(value as Map<String, dynamic>)
+          as ReturnType;
+    case 'UpdateRsvpRequest':
+      return UpdateRsvpRequest.fromJson(value as Map<String, dynamic>)
           as ReturnType;
     case 'User':
       return User.fromJson(value as Map<String, dynamic>) as ReturnType;

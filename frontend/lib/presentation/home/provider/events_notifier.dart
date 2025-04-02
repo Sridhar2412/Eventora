@@ -18,14 +18,17 @@ class EventNotifier extends StateNotifier<UserState<EventStateModel>> {
   }
   final Ref ref;
   late EventsApi _repo;
+  late RSVPApi _rsvpRepo;
   @override
   UserState<EventStateModel> build() {
     _repo = ref.read(apiProvider).getEventsApi();
+    _rsvpRepo = ref.read(apiProvider).getRSVPApi();
     return UserState(data: EventStateModel());
   }
 
   void init() {
     _repo = ref.read(apiProvider).getEventsApi();
+    _rsvpRepo = ref.read(apiProvider).getRSVPApi();
   }
 
   @override
@@ -93,5 +96,31 @@ class EventNotifier extends StateNotifier<UserState<EventStateModel>> {
     final newData = state.data.copyWith(myEvent: result);
     state = state.copyWith(error: '', loading: false, data: newData);
     return res;
+  }
+
+  Future<bool?> getRsvpStatus({
+    required int eventId,
+    required int userId,
+  }) async {
+    final result = await _rsvpRepo
+        .apiRsvpGetMyRsvpStatusPost(
+            updateRsvpRequest:
+                UpdateRsvpRequest(userId: userId, eventId: eventId))
+        .guard<bool>();
+
+    return result;
+  }
+
+  Future<bool?> updateRsvpStatus({
+    required int eventId,
+    required int userId,
+  }) async {
+    final result = await _rsvpRepo
+        .apiRsvpUpdateRsvpPost(
+            updateRsvpRequest:
+                UpdateRsvpRequest(userId: userId, eventId: eventId))
+        .guard();
+    final data = await getRsvpStatus(eventId: eventId, userId: userId);
+    return data;
   }
 }

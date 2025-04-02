@@ -7,6 +7,7 @@ import 'package:flutter_master/presentation/routes/app_router.dart';
 import 'package:flutter_master/presentation/shared/components/app_text_theme.dart';
 import 'package:flutter_master/presentation/shared/components/change_date_time.dart';
 import 'package:flutter_master/presentation/shared/components/custom_app_bar.dart';
+import 'package:flutter_master/presentation/shared/components/custom_filled_button.dart';
 import 'package:flutter_master/presentation/shared/gen/assets.gen.dart';
 import 'package:flutter_master/presentation/theme/config/app_color.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,12 +23,18 @@ class EventDetailPage extends ConsumerStatefulWidget {
 }
 
 class _EventDetailPageState extends ConsumerState<EventDetailPage> {
+  bool check = false;
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await ref
           .read(eventNotifierProvider.notifier)
           .getEventById(eventId: widget.eventId);
+      check = await ref
+              .read(eventNotifierProvider.notifier)
+              .getRsvpStatus(eventId: widget.eventId, userId: 1) ??
+          false;
+      setState(() {});
     });
     super.initState();
   }
@@ -35,7 +42,21 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(eventNotifierProvider);
+    final notifier = ref.read(eventNotifierProvider.notifier);
     return Scaffold(
+      bottomNavigationBar: CustomFilledButton(
+        radius: 10,
+        onTap: (check)
+            ? null
+            : () async {
+                final data = await notifier.updateRsvpStatus(
+                    eventId: widget.eventId, userId: 1);
+                setState(() {
+                  check = data ?? false;
+                });
+              },
+        title: 'RSVP',
+      ).padAll(10),
       appBar: CustomAppBar(
         title: 'Event Detail Page',
         backgroundColor: AppColor.primary,

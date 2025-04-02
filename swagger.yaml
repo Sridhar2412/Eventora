@@ -311,6 +311,31 @@ components:
           items:
             $ref: '#/components/schemas/Predefined'
 
+    UpdateRsvpRequest:
+      type: object
+      properties:
+        userId:
+          type: integer
+          example: 1
+          description: The ID of the user
+        eventId:
+          type: integer
+          example: 2
+          description: The ID of the event
+    # General Response Schema for RSVP status
+    RsvpStatusResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+        code:
+          type: string
+          example: '200'
+        message:
+          type: string
+          example: RSVP status updated to attending.
+
 
 paths:
   # User Paths
@@ -740,6 +765,70 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+
+  /api/rsvp/getMyRsvpStatus:
+    post:
+      summary: Get RSVP status for a user and event
+      tags:
+        - RSVP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRsvpRequest'
+      responses:
+        '200':
+          description: Returns the RSVP status for the user and event
+          content:
+            application/json:
+              schema:
+                type: boolean
+                example: false
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: No RSVP record found for the user and event
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/rsvp/updateRsvp:
+    post:
+      summary: Update the RSVP status for a user and event
+      tags:
+        - RSVP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRsvpRequest'
+      responses:
+        '200':
+          description: Successfully updated RSVP status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RsvpStatusResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Event or user not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
 
 
 

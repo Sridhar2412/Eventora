@@ -1,8 +1,17 @@
 const { Sequelize, DataTypes } = require("sequelize");
-const {dbName, dbHost, dbPort, dbUser, dbPass, jwtSecret} = require('../services/config')
+const {
+  dbName,
+  dbHost,
+  dbPort,
+  dbUser,
+  dbPass,
+  jwtSecret,
+} = require("../services/config");
 
 // Initialize Sequelize with MySQL connection
-const sequelize = new Sequelize(`mysql://${dbUser}:${dbPass}@${dbHost}:${dbPort}/${dbName}`); // Replace with your DB credentials
+const sequelize = new Sequelize(
+  `mysql://${dbUser}:${dbPass}@${dbHost}:${dbPort}/${dbName}`
+); // Replace with your DB credentials
 
 const Event = sequelize.define(
   "Event",
@@ -38,6 +47,10 @@ const Event = sequelize.define(
     },
     longitude: {
       type: DataTypes.DECIMAL(9, 6),
+      allowNull: true,
+    },
+    attendenceCount: {
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
   },

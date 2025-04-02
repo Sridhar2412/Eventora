@@ -4,6 +4,7 @@ const productRoutes = require("./routes/product_route");
 const userRouter = require("./routes/user_route");
 const eventRouter = require("./routes/event_route");
 const predefinedRouter = require("./routes/predefined_rouite");
+const rsvpRouter = require("./routes/rsvp_route");
 const YAML = require("yamljs");
 const path = require("path");
 const swaggerUI = require("swagger-ui-express");
@@ -25,6 +26,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/users", userRouter);
 app.use("/api/event", eventRouter);
 app.use("/api/predefined", predefinedRouter);
+app.use("/api/rsvp", rsvpRouter);
 
 // Set the port for the server
 const port = 3000;
