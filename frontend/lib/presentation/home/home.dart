@@ -129,19 +129,27 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                   scrollDirection: Axis.horizontal,
                   padEnds: false,
-                  itemBuilder: (context, index) => CustomCard(
-                      backgroundColor:
-                          Color(int.parse('0xFF${categoiryColorList[index]}')),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            predefinedState.data.categoryList[index].name ?? '',
-                            style: AppTextTheme.semiBold14
-                                .copyWith(color: AppColor.white),
-                          )
-                        ],
-                      )).padRight()),
+                  itemBuilder: (context, index) => InkWell(
+                        onTap: () => context.pushRoute(EventListRoute(
+                            category:
+                                predefinedState.data.categoryList[index].name ??
+                                    '')),
+                        child: CustomCard(
+                            backgroundColor: Color(
+                                int.parse('0xFF${categoiryColorList[index]}')),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  predefinedState
+                                          .data.categoryList[index].name ??
+                                      '',
+                                  style: AppTextTheme.semiBold14
+                                      .copyWith(color: AppColor.white),
+                                )
+                              ],
+                            )).padRight(),
+                      )),
             ),
             Gap(20),
             Text(

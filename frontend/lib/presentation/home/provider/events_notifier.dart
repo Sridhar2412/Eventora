@@ -67,6 +67,24 @@ class EventNotifier extends StateNotifier<UserState<EventStateModel>> {
     return res;
   }
 
+  Future<String?> getEventListByCategory(
+      {required EventListByCategoryRequestCategoryEnum category}) async {
+    String? res;
+
+    final result = await _repo
+        .getEventListByType(
+            eventListByCategoryRequest:
+                EventListByCategoryRequest(category: category))
+        .guard<EventListByCategoryResponse>();
+
+    if (result.data != null) {
+      final newData =
+          state.data.copyWith(eventByCategoryList: result.data ?? []);
+      state = state.copyWith(error: '', loading: false, data: newData);
+    }
+    return res;
+  }
+
   Future<String?> getEventById({required int eventId}) async {
     String? res;
 

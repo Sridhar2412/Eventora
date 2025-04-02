@@ -9,6 +9,8 @@ doc/CreateUserRequest.md
 doc/Error.md
 doc/ErrorError.md
 doc/Event.md
+doc/EventListByCategoryRequest.md
+doc/EventListByCategoryResponse.md
 doc/EventResponse.md
 doc/EventsApi.md
 doc/EventsListResponse.md
@@ -42,6 +44,8 @@ lib/src/model/create_user_request.dart
 lib/src/model/error.dart
 lib/src/model/error_error.dart
 lib/src/model/event.dart
+lib/src/model/event_list_by_category_request.dart
+lib/src/model/event_list_by_category_response.dart
 lib/src/model/event_response.dart
 lib/src/model/events_list_response.dart
 lib/src/model/login_request.dart
@@ -55,3 +59,5 @@ lib/src/model/user.dart
 lib/src/model/user_response.dart
 lib/src/model/users_list_response.dart
 pubspec.yaml
+test/event_list_by_category_request_test.dart
+test/event_list_by_category_response_test.dart

@@ -19,6 +19,8 @@ export 'package:api/src/model/create_user_request.dart';
 export 'package:api/src/model/error.dart';
 export 'package:api/src/model/error_error.dart';
 export 'package:api/src/model/event.dart';
+export 'package:api/src/model/event_list_by_category_request.dart';
+export 'package:api/src/model/event_list_by_category_response.dart';
 export 'package:api/src/model/event_response.dart';
 export 'package:api/src/model/events_list_response.dart';
 export 'package:api/src/model/login_request.dart';

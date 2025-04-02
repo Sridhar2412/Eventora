@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**deleteEvent**](EventsApi.md#deleteevent) | **DELETE** /api/event/{id} | Delete event by ID
 [**getAllEvents**](EventsApi.md#getallevents) | **GET** /api/event/list | Get all events
 [**getEventById**](EventsApi.md#geteventbyid) | **GET** /api/event/{id} | Get event by ID
+[**getEventListByType**](EventsApi.md#geteventlistbytype) | **POST** /api/event/list-by-category | Get list of event by category
 [**updateEvent**](EventsApi.md#updateevent) | **PATCH** /api/event/{id} | Update event by ID
 
 
@@ -184,6 +185,49 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getEventListByType**
+> EventListByCategoryResponse getEventListByType(eventListByCategoryRequest)
+
+Get list of event by category
+
+Retrieve a list of event category based on an optional filter for category
+
+### Example
+```dart
+import 'package:api/api.dart';
+
+final api = Api().getEventsApi();
+final EventListByCategoryRequest eventListByCategoryRequest = ; // EventListByCategoryRequest | 
+
+try {
+    final response = api.getEventListByType(eventListByCategoryRequest);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling EventsApi->getEventListByType: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **eventListByCategoryRequest** | [**EventListByCategoryRequest**](EventListByCategoryRequest.md)|  | 
+
+### Return type
+
+[**EventListByCategoryResponse**](EventListByCategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

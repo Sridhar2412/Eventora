@@ -1,5 +1,8 @@
 const Event = require("../models/event_model"); // Importing the Event model
-const {getEventListQuery,getUpcomingEventListQuery}= require("../queries/query")
+const {
+  getEventListQuery,
+  getUpcomingEventListQuery,
+} = require("../queries/query");
 // Controller function to handle GET /events request
 const getEvents = async (req, res) => {
   try {
@@ -11,9 +14,45 @@ const getEvents = async (req, res) => {
 
     // If isUpcoming is true, filter for upcoming events
     if (isUpcoming === "true") {
-      query =getUpcomingEventListQuery;
+      query = getUpcomingEventListQuery;
     }
 
+    // Execute the query (assuming you're using Sequelize ORM or raw SQL query)
+    const events = await Event.sequelize.query(query, {
+      type: Event.sequelize.QueryTypes.SELECT,
+    });
+
+    // Check if no events were found
+    if (!events || events.length === 0) {
+      return res.status(404).json({
+        status: "ERROR",
+        code: "404",
+        error: { message: "No events found" },
+      });
+    }
+
+    // Return the response with the list of events
+    return res.status(200).json({
+      status: "OK",
+      code: "200",
+      data: events,
+    });
+  } catch (e) {
+    return res.status(400).json({
+      status: "ERROR",
+      code: "400",
+      error: { message: `Error: ${e.message}` },
+    });
+  }
+};
+
+const getEventsByCategory = async (req, res) => {
+  try {
+    // Get the isUpcoming flag from the request query or body
+    const category = req.body.category; // Assuming the flag is passed as a query parameter (e.g., /events?isUpcoming=true)
+
+    // Define the query based on the isUpcoming flag
+    let query = `${getEventListQuery} WHERE category="${category}"`;
     // Execute the query (assuming you're using Sequelize ORM or raw SQL query)
     const events = await Event.sequelize.query(query, {
       type: Event.sequelize.QueryTypes.SELECT,
@@ -182,6 +221,7 @@ const deleteEvent = async (req, res) => {
 module.exports = {
   getEvents,
   getEventById,
+  getEventsByCategory,
   saveEvent,
   updateEvent,
   deleteEvent,

@@ -212,6 +212,30 @@ components:
           type: number
           format: float
           example: -122.4194
+
+    EventListByCategoryRequest:
+      type: object
+      properties:
+        category:
+          type: string
+          enum: [Social, Sports, Travel, Community, Games,  Tech, Education, Business, Art, Dancing, Music, Political]
+          example: "Social"
+      required:
+        - category
+
+    EventListByCategoryResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+        code:
+          type: integer
+          example: 200
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
     
     Predefined:
       type: object
@@ -538,6 +562,33 @@ paths:
                 $ref: '#/components/schemas/EventResponse'
         '400':
           description: Error deleting event
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/event/list-by-category:
+    post:
+      operationId: 'getEventListByType'
+      summary: Get list of event by category
+      description: Retrieve a list of event category based on an optional filter for category
+      tags:
+        - Events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventListByCategoryRequest'
+      responses:
+        '200':
+          description: A list of event by category
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventListByCategoryResponse'
+        '400':
+          description: Error retrieving event
           content:
             application/json:
               schema:

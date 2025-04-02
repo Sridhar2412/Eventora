@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {
   getEvents,
+  getEventsByCategory,
   getEventById,
   saveEvent,
   updateEvent,
@@ -10,6 +11,7 @@ const {
 
 // Route to get all Events
 router.get("/list", getEvents);
+router.post("/list-by-category", getEventsByCategory);
 
 // Route to get a Event by its ID
 router.get("/:id", getEventById);

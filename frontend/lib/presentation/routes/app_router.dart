@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_master/presentation/auth/login.dart';
 import 'package:flutter_master/presentation/auth/register_page.dart';
 import 'package:flutter_master/presentation/events/event_detail%20page.dart';
+import 'package:flutter_master/presentation/events/event_list_page.dart';
 import 'package:flutter_master/presentation/events/view_on_map_page.dart';
 import 'package:flutter_master/presentation/explore/explore_page.dart';
 import 'package:flutter_master/presentation/home/home.dart';
@@ -36,6 +37,9 @@ class AppRouter extends _$AppRouter {
         ),
         AutoRoute(
           page: ViewOnMapRoute.page,
+        ),
+        AutoRoute(
+          page: EventListRoute.page,
         ),
         AutoRoute(
           page: MainRoute.page,

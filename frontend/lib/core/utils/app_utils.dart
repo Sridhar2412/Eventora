@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:api/api.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_master/core/exception/app_exception.dart';
@@ -59,5 +60,49 @@ class AppUtils {
       return data;
     }
     return temp;
+  }
+
+  static EventListByCategoryRequestCategoryEnum getCategory(String category) {
+    switch (category) {
+      case 'Social':
+        return EventListByCategoryRequestCategoryEnum.social;
+
+      case 'Sports':
+        return EventListByCategoryRequestCategoryEnum.sports;
+
+      case 'Travel':
+        return EventListByCategoryRequestCategoryEnum.travel;
+
+      case 'Community':
+        return EventListByCategoryRequestCategoryEnum.community;
+
+      case 'Games':
+        return EventListByCategoryRequestCategoryEnum.games;
+
+      case 'Tech':
+        return EventListByCategoryRequestCategoryEnum.tech;
+
+      case 'Education':
+        return EventListByCategoryRequestCategoryEnum.education;
+
+      case 'Business':
+        return EventListByCategoryRequestCategoryEnum.business;
+
+      case 'Art':
+        return EventListByCategoryRequestCategoryEnum.art;
+
+      case 'Dancing':
+        return EventListByCategoryRequestCategoryEnum.dancing;
+
+      case 'Music':
+        return EventListByCategoryRequestCategoryEnum.music;
+
+      case 'Political':
+        return EventListByCategoryRequestCategoryEnum.political;
+
+      default:
+        return EventListByCategoryRequestCategoryEnum
+            .social; // Return null if no match
+    }
   }
 }

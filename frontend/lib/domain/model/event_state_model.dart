@@ -9,6 +9,7 @@ class EventStateModel with _$EventStateModel {
   const factory EventStateModel({
     @Default(<Event>[]) List<Event> eventList,
     @Default(<Event>[]) List<Event> upcomingEventList,
+    @Default(<Event>[]) List<Event> eventByCategoryList,
     Event? myEvent,
   }) = _EventStateModel;
 

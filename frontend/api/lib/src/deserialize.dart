@@ -4,6 +4,8 @@ import 'package:api/src/model/create_user_request.dart';
 import 'package:api/src/model/error.dart';
 import 'package:api/src/model/error_error.dart';
 import 'package:api/src/model/event.dart';
+import 'package:api/src/model/event_list_by_category_request.dart';
+import 'package:api/src/model/event_list_by_category_response.dart';
 import 'package:api/src/model/event_response.dart';
 import 'package:api/src/model/events_list_response.dart';
 import 'package:api/src/model/login_request.dart';
@@ -51,6 +53,12 @@ ReturnType deserialize<ReturnType, BaseType>(dynamic value, String targetType,
       return ErrorError.fromJson(value as Map<String, dynamic>) as ReturnType;
     case 'Event':
       return Event.fromJson(value as Map<String, dynamic>) as ReturnType;
+    case 'EventListByCategoryRequest':
+      return EventListByCategoryRequest.fromJson(value as Map<String, dynamic>)
+          as ReturnType;
+    case 'EventListByCategoryResponse':
+      return EventListByCategoryResponse.fromJson(
+          {"status": "OK", "code": 200, "data": value}) as ReturnType;
     case 'EventResponse':
       return EventResponse.fromJson(value as Map<String, dynamic>)
           as ReturnType;
