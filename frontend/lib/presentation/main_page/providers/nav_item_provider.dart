@@ -26,13 +26,13 @@ final navItemsProvider = Provider<List<NavData>>((ref) {
     //     )),
 
     NavData(
-        label: 'Send & Request',
+        label: 'Explore',
         activeIcon: const Icon(
-          Icons.payments,
+          Icons.explore_outlined,
           color: AppColor.primary,
         ),
         inactiveIcon: const Icon(
-          Icons.payments,
+          Icons.explore_outlined,
           color: AppColor.grey,
         )),
     NavData(

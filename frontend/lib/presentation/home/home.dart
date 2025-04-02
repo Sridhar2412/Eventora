@@ -155,39 +155,46 @@ class _HomePageState extends ConsumerState<HomePage> {
                   // itemCount: 5,
                   itemCount: state.data.eventList.length,
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => CustomCard(
-                      padding: 0,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Assets.images.event.image(
-                                fit: BoxFit.fill,
-                                height: 180,
-                                width: context.width),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                state.data.eventList[index].eventName ?? '',
-                                style: AppTextTheme.semiBold18,
-                              ),
-                              Text(
-                                'Date: ${changeToSimpleDMY(state.data.eventList[index].eventDate.toString())}',
-                                style: AppTextTheme.medium14
-                                    .copyWith(fontSize: 14),
-                              ),
-                              Text(
-                                state.data.eventList[index].city ?? '',
-                                style: AppTextTheme.medium14.copyWith(
-                                    fontSize: 14, color: AppColor.grey),
-                              ),
-                            ],
-                          ).padAll(15),
-                        ],
-                      )).padRight()),
+                  itemBuilder: (context, index) => InkWell(
+                        onTap: () => context.pushRoute(EventDetailRoute(
+                            eventId:
+                                state.data.upcomingEventList[index].eventId ??
+                                    0)),
+                        child: CustomCard(
+                            padding: 0,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Assets.images.event.image(
+                                      fit: BoxFit.fill,
+                                      height: 180,
+                                      width: context.width),
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      state.data.eventList[index].eventName ??
+                                          '',
+                                      style: AppTextTheme.semiBold18,
+                                    ),
+                                    Text(
+                                      'Date: ${changeToSimpleDMY(state.data.eventList[index].eventDate.toString())}',
+                                      style: AppTextTheme.medium14
+                                          .copyWith(fontSize: 14),
+                                    ),
+                                    Text(
+                                      state.data.eventList[index].city ?? '',
+                                      style: AppTextTheme.medium14.copyWith(
+                                          fontSize: 14, color: AppColor.grey),
+                                    ),
+                                  ],
+                                ).padAll(15),
+                              ],
+                            )).padRight(),
+                      )),
             ),
             Gap(20),
             Gap(40),

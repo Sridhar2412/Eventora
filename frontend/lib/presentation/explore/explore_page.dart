@@ -1,51 +1,64 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_master/presentation/home/provider/events_notifier.dart';
+import 'package:flutter_master/presentation/theme/config/app_color.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 
 @RoutePage()
-class ViewOnMapPage extends StatefulWidget {
-  const ViewOnMapPage({super.key, this.lat, this.lang, required this.location});
-  final double? lat;
-  final double? lang;
-  final String location;
-  @override
-  State<ViewOnMapPage> createState() => _ViewOnMapPageState();
+class ExplorePage extends ConsumerStatefulWidget {
+  const ExplorePage({
+    super.key,
+  });
+
+  ConsumerState<ConsumerStatefulWidget> createState() => _ExplorePageState();
 }
 
-class _ViewOnMapPageState extends State<ViewOnMapPage> {
+class _ExplorePageState extends ConsumerState<ExplorePage> {
   MapboxMap? _mapboxMap;
   PointAnnotationManager? pointAnnotationManager;
 
   // List of coordinates where markers will be placed
   late List<Position> positions;
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await ref.read(eventNotifierProvider.notifier).getUpcomingEventList();
+    });
   }
 
   _onMapCreated(MapboxMap mapboxMap) async {
     _mapboxMap = mapboxMap;
     pointAnnotationManager =
         await mapboxMap.annotations.createPointAnnotationManager();
-    // await addMarker();
+    await addMarker();
   }
 
   Future<void> addMarker() async {
+    final state = ref.watch(eventNotifierProvider);
     // Load the image from assets
     final ByteData bytes =
         await rootBundle.load('assets/images/custom-icon.png');
     final Uint8List imageData = bytes.buffer.asUint8List();
     // Create a PointAnnotationOptions
-    PointAnnotationOptions pointAnnotationOptions = PointAnnotationOptions(
-        geometry: Point(
-            coordinates: Position(
-                widget.lat ?? 0, widget.lang ?? 0)), // Example coordinates
-        image: imageData,
-        iconSize: 0.5);
+    positions = state.data.upcomingEventList
+        .map((e) => Position(
+              double.tryParse(e.latitude ?? '') ?? 0,
+              double.tryParse(e.longitude ?? '') ?? 0,
+            ))
+        .toList();
+    for (var i = 0; i < positions.length; i++) {
+      PointAnnotationOptions pointAnnotationOptions = PointAnnotationOptions(
+          geometry: Point(coordinates: positions[i]), // Example coordinates
+          image: imageData,
+          iconSize: 0.5);
+      // Add the annotation to the map
+      pointAnnotationManager?.create(pointAnnotationOptions);
+    }
 
-    // Add the annotation to the map
-    pointAnnotationManager?.create(pointAnnotationOptions);
     setState(() {});
   }
 
@@ -67,20 +80,34 @@ class _ViewOnMapPageState extends State<ViewOnMapPage> {
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.read(eventNotifierProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Mapbox Demo'),
-      ),
+      backgroundColor: AppColor.whiteBackground,
       body: Stack(
         children: [
+          // Gap(40),
+          // Positioned(
+          //     top: 20,
+          //     child: Text(
+          //       'Explore ',
+          //       style: AppTextTheme.semiBold16,
+          //     )),
+
           // Map widget
           MapWidget(
             key: const ValueKey('mapWidget'),
             onMapCreated: _onMapCreated,
             cameraOptions: CameraOptions(
-              center: Point(
-                  coordinates: Position(widget.lat ?? 0,
-                      widget.lang ?? 0)), // Central coordinates for the map
+              center: Point(coordinates: Position(72.867943, 19.114303)
+                  //     Position(
+                  //   double.tryParse(
+                  //           state.data.upcomingEventList.first.latitude ?? '') ??
+                  //       0,
+                  //   double.tryParse(
+                  //           state.data.upcomingEventList.first.longitude ?? '') ??
+                  //       0,
+                  // )
+                  ), // Central coordinates for the map
               zoom:
                   12.0, // Adjust this zoom level to make sure the markers are visible
               bearing: 0.0,

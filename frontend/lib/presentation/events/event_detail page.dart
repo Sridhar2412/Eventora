@@ -37,7 +37,7 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
     final state = ref.watch(eventNotifierProvider);
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Even Detail Page',
+        title: 'Event Detail Page',
         backgroundColor: AppColor.primary,
       ),
       body: Column(
@@ -106,7 +106,15 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
                 style: AppTextTheme.medium14,
               ).padBottom(),
               InkWell(
-                onTap: () => context.pushRoute(ViewOnMapRoute()),
+                onTap: () => context.pushRoute(ViewOnMapRoute(
+                  location: state.data.myEvent?.city ?? '',
+                  lat: double.tryParse(state.data.myEvent?.latitude ?? '') ?? 0,
+                  lang:
+                      double.tryParse(state.data.myEvent?.longitude ?? '') ?? 0,
+                  // lang: 19.114303,
+                  // lat: 72.867943,
+                  //  Position(72.867943, 19.114303)
+                )),
                 child: Container(
                     height: 60,
                     width: context.width,

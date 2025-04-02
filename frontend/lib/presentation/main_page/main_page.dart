@@ -52,7 +52,7 @@ class _MainPageState extends ConsumerState<MainPage> {
       child: AutoTabsScaffold(
         routes: const [
           HomeRoute(),
-          HomeRoute(),
+          ExploreRoute(),
           HomeRoute(),
         ],
         bottomNavigationBuilder: (context, tabsRouter) => BottomNavBar(
