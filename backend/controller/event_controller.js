@@ -2,6 +2,7 @@ const Event = require("../models/event_model"); // Importing the Event model
 const {
   getEventListQuery,
   getUpcomingEventListQuery,
+  getMyEvents,
 } = require("../queries/query");
 // Controller function to handle GET /events request
 const getEvents = async (req, res) => {
@@ -30,6 +31,54 @@ const getEvents = async (req, res) => {
         error: { message: "No events found" },
       });
     }
+
+    // Return the response with the list of events
+    return res.status(200).json({
+      status: "OK",
+      code: "200",
+      data: events,
+    });
+  } catch (e) {
+    return res.status(400).json({
+      status: "ERROR",
+      code: "400",
+      error: { message: `Error: ${e.message}` },
+    });
+  }
+};
+
+const getMyEventList = async (req, res) => {
+  try {
+    // Get the isUpcoming flag from the request query or body
+    const isUpcoming = req.body.isUpcoming; // Assuming the flag is passed as a query parameter (e.g., /events?isUpcoming=true)
+    const isPast = req.body.isPast; // Assuming the flag is passed as a query parameter (e.g., /events?isUpcoming=true)
+    const isToday = req.body.isToday; // Assuming the flag is passed as a query parameter (e.g., /events?isUpcoming=true)
+    const userId = parseInt(req.body.userId); // Assuming the flag is passed as a query parameter (e.g., /events?isUpcoming=true)
+
+    // Define the query based on the isUpcoming flag
+    let query = getMyEvents;
+    console.log(req.body);
+    if (isUpcoming === true) {
+      query = `${getMyEvents} WHERE r.userId = ${userId} AND e.event_date>CURDATE();`;
+    } else if (isPast === true) {
+      query = `${getMyEvents} WHERE r.userId = ${userId} AND e.event_date<CURDATE();`;
+    } else if (isToday === true) {
+      query = `${getMyEvents} WHERE r.userId = ${userId} AND e.event_date=CURDATE();`;
+    }
+
+    // Execute the query (assuming you're using Sequelize ORM or raw SQL query)
+    const events = await Event.sequelize.query(query, {
+      type: Event.sequelize.QueryTypes.SELECT,
+    });
+
+    // Check if no events were found
+    // if (!events || events.length === 0) {
+    //   return res.status(404).json({
+    //     status: "ERROR",
+    //     code: "404",
+    //     error: { message: "No events found" },
+    //   });
+    // }
 
     // Return the response with the list of events
     return res.status(200).json({
@@ -220,6 +269,7 @@ const deleteEvent = async (req, res) => {
 
 module.exports = {
   getEvents,
+  getMyEventList,
   getEventById,
   getEventsByCategory,
   saveEvent,

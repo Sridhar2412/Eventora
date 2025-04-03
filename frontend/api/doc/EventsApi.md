@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**getAllEvents**](EventsApi.md#getallevents) | **GET** /api/event/list | Get all events
 [**getEventById**](EventsApi.md#geteventbyid) | **GET** /api/event/{id} | Get event by ID
 [**getEventListByType**](EventsApi.md#geteventlistbytype) | **POST** /api/event/list-by-category | Get list of event by category
+[**getMyEvents**](EventsApi.md#getmyevents) | **POST** /api/event/myEvent/list | Get a list of events a user has RSVPed to
 [**updateEvent**](EventsApi.md#updateevent) | **PATCH** /api/event/{id} | Update event by ID
 
 
@@ -220,6 +221,49 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**EventListByCategoryResponse**](EventListByCategoryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getMyEvents**
+> EventsListResponse getMyEvents(myEventListRequest)
+
+Get a list of events a user has RSVPed to
+
+This endpoint returns a list of events that the user has RSVPed to, based on the isUpcoming, isPast, and isToday flags.
+
+### Example
+```dart
+import 'package:api/api.dart';
+
+final api = Api().getEventsApi();
+final MyEventListRequest myEventListRequest = ; // MyEventListRequest | 
+
+try {
+    final response = api.getMyEvents(myEventListRequest);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling EventsApi->getMyEvents: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **myEventListRequest** | [**MyEventListRequest**](MyEventListRequest.md)|  | 
+
+### Return type
+
+[**EventsListResponse**](EventsListResponse.md)
 
 ### Authorization
 

@@ -52,6 +52,7 @@ class _MainPageState extends ConsumerState<MainPage> {
       child: AutoTabsScaffold(
         routes: const [
           HomeRoute(),
+          MyEventsRoute(),
           ExploreRoute(),
           HomeRoute(),
         ],

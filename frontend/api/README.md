@@ -72,6 +72,7 @@ Class | Method | HTTP request | Description
 [*EventsApi*](doc/EventsApi.md) | [**getAllEvents**](doc/EventsApi.md#getallevents) | **GET** /api/event/list | Get all events
 [*EventsApi*](doc/EventsApi.md) | [**getEventById**](doc/EventsApi.md#geteventbyid) | **GET** /api/event/{id} | Get event by ID
 [*EventsApi*](doc/EventsApi.md) | [**getEventListByType**](doc/EventsApi.md#geteventlistbytype) | **POST** /api/event/list-by-category | Get list of event by category
+[*EventsApi*](doc/EventsApi.md) | [**getMyEvents**](doc/EventsApi.md#getmyevents) | **POST** /api/event/myEvent/list | Get a list of events a user has RSVPed to
 [*EventsApi*](doc/EventsApi.md) | [**updateEvent**](doc/EventsApi.md#updateevent) | **PATCH** /api/event/{id} | Update event by ID
 [*PredefinedApi*](doc/PredefinedApi.md) | [**createPredefined**](doc/PredefinedApi.md#createpredefined) | **POST** /api/predefined/save | Create a new predefined entity
 [*PredefinedApi*](doc/PredefinedApi.md) | [**deletePredefined**](doc/PredefinedApi.md#deletepredefined) | **DELETE** /api/predefined/{id} | Delete predefined entity by ID
@@ -100,6 +101,7 @@ Class | Method | HTTP request | Description
  - [LoginRequest](doc/LoginRequest.md)
  - [LoginResponse](doc/LoginResponse.md)
  - [LoginResponseData](doc/LoginResponseData.md)
+ - [MyEventListRequest](doc/MyEventListRequest.md)
  - [Predefined](doc/Predefined.md)
  - [PredefinedListRequest](doc/PredefinedListRequest.md)
  - [PredefinedListResponse](doc/PredefinedListResponse.md)

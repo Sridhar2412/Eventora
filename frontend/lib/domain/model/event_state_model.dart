@@ -10,6 +10,7 @@ class EventStateModel with _$EventStateModel {
     @Default(<Event>[]) List<Event> eventList,
     @Default(<Event>[]) List<Event> upcomingEventList,
     @Default(<Event>[]) List<Event> eventByCategoryList,
+    @Default(<Event>[]) List<Event> myEventList,
     Event? myEvent,
   }) = _EventStateModel;
 

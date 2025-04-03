@@ -27,6 +27,7 @@ export 'package:api/src/model/events_list_response.dart';
 export 'package:api/src/model/login_request.dart';
 export 'package:api/src/model/login_response.dart';
 export 'package:api/src/model/login_response_data.dart';
+export 'package:api/src/model/my_event_list_request.dart';
 export 'package:api/src/model/predefined.dart';
 export 'package:api/src/model/predefined_list_request.dart';
 export 'package:api/src/model/predefined_list_response.dart';

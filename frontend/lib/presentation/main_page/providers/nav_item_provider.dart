@@ -14,17 +14,16 @@ final navItemsProvider = Provider<List<NavData>>((ref) {
           Icons.dashboard,
           color: AppColor.grey,
         )),
-    // NavData(
-    //     label: 'Scan Receipt',
-    //     activeIcon: const Icon(
-    //       Icons.qr_code_scanner,
-    //       color: AppColor.primary,
-    //     ),
-    //     inactiveIcon: const Icon(
-    //       Icons.qr_code_scanner,
-    //       color: AppColor.grey,
-    //     )),
-
+    NavData(
+        label: 'My Events',
+        activeIcon: const Icon(
+          Icons.event_outlined,
+          color: AppColor.primary,
+        ),
+        inactiveIcon: const Icon(
+          Icons.event_outlined,
+          color: AppColor.grey,
+        )),
     NavData(
         label: 'Explore',
         activeIcon: const Icon(

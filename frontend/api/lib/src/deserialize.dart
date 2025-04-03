@@ -11,6 +11,7 @@ import 'package:api/src/model/events_list_response.dart';
 import 'package:api/src/model/login_request.dart';
 import 'package:api/src/model/login_response.dart';
 import 'package:api/src/model/login_response_data.dart';
+import 'package:api/src/model/my_event_list_request.dart';
 import 'package:api/src/model/predefined.dart';
 import 'package:api/src/model/predefined_list_request.dart';
 import 'package:api/src/model/predefined_list_response.dart';
@@ -74,6 +75,9 @@ ReturnType deserialize<ReturnType, BaseType>(dynamic value, String targetType,
           as ReturnType;
     case 'LoginResponseData':
       return LoginResponseData.fromJson(value as Map<String, dynamic>)
+          as ReturnType;
+    case 'MyEventListRequest':
+      return MyEventListRequest.fromJson(value as Map<String, dynamic>)
           as ReturnType;
     case 'Predefined':
       return Predefined.fromJson(value as Map<String, dynamic>) as ReturnType;

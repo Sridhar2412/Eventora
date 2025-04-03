@@ -17,6 +17,7 @@ doc/EventsListResponse.md
 doc/LoginRequest.md
 doc/LoginResponse.md
 doc/LoginResponseData.md
+doc/MyEventListRequest.md
 doc/Predefined.md
 doc/PredefinedApi.md
 doc/PredefinedListRequest.md
@@ -55,6 +56,7 @@ lib/src/model/events_list_response.dart
 lib/src/model/login_request.dart
 lib/src/model/login_response.dart
 lib/src/model/login_response_data.dart
+lib/src/model/my_event_list_request.dart
 lib/src/model/predefined.dart
 lib/src/model/predefined_list_request.dart
 lib/src/model/predefined_list_response.dart
@@ -65,3 +67,4 @@ lib/src/model/user.dart
 lib/src/model/user_response.dart
 lib/src/model/users_list_response.dart
 pubspec.yaml
+test/my_event_list_request_test.dart

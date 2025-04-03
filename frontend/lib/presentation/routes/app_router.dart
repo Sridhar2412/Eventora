@@ -4,6 +4,7 @@ import 'package:flutter_master/presentation/auth/login.dart';
 import 'package:flutter_master/presentation/auth/register_page.dart';
 import 'package:flutter_master/presentation/events/event_detail%20page.dart';
 import 'package:flutter_master/presentation/events/event_list_page.dart';
+import 'package:flutter_master/presentation/events/my_events_page.dart';
 import 'package:flutter_master/presentation/events/view_on_map_page.dart';
 import 'package:flutter_master/presentation/explore/explore_page.dart';
 import 'package:flutter_master/presentation/home/home.dart';
@@ -44,11 +45,11 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           page: MainRoute.page,
           children: [
-            // AutoRoute(
-            //   page: HomeRoute.page,
-            // ),
             AutoRoute(
               page: HomeRoute.page,
+            ),
+            AutoRoute(
+              page: MyEventsRoute.page,
             ),
             AutoRoute(
               page: ExploreRoute.page,
