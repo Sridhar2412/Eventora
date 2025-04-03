@@ -3,6 +3,7 @@ import 'package:api/api.dart';
 import 'package:flutter_master/core/extension/future.dart';
 import 'package:flutter_master/data/helper/api_client.dart';
 import 'package:flutter_master/domain/model/event_state_model.dart';
+import 'package:flutter_master/presentation/events/event_detail%20page.dart';
 import 'package:flutter_master/presentation/shared/model/user_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -106,8 +107,10 @@ class EventNotifier extends StateNotifier<UserState<EventStateModel>> {
         .apiRsvpGetMyRsvpStatusPost(
             updateRsvpRequest:
                 UpdateRsvpRequest(userId: userId, eventId: eventId))
-        .guard<bool>();
-
+        .guard();
+    await ref
+        .read(rsvpCheckProvider(eventId).notifier)
+        .update((state) => result);
     return result;
   }
 
@@ -115,12 +118,17 @@ class EventNotifier extends StateNotifier<UserState<EventStateModel>> {
     required int eventId,
     required int userId,
   }) async {
+    state = state.copyWith(loading: true);
     final result = await _rsvpRepo
         .apiRsvpUpdateRsvpPost(
             updateRsvpRequest:
                 UpdateRsvpRequest(userId: userId, eventId: eventId))
         .guard();
     final data = await getRsvpStatus(eventId: eventId, userId: userId);
+    await ref
+        .read(rsvpCheckProvider(eventId).notifier)
+        .update((state) => data ?? false);
+    state = state.copyWith(loading: false);
     return data;
   }
 }

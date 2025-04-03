@@ -11,13 +11,13 @@ const getMyRsvpStatus = async (req, res) => {
     return res.status(200).json({
       status: "OK",
       code: "200",
-      message: false,
+      data: false,
     });
   } else {
     return res.status(200).json({
       status: "OK",
       code: "200",
-      message: rsvpStatus.rsvpStatus,
+      data: rsvpStatus.rsvpStatus,
     });
   }
 };
