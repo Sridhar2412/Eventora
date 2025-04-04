@@ -18,6 +18,12 @@ import 'package:api/src/model/predefined_list_response.dart';
 import 'package:api/src/model/predefined_response.dart';
 import 'package:api/src/model/rsvp_status_response.dart';
 import 'package:api/src/model/update_rsvp_request.dart';
+import 'package:api/src/model/update_user_by_id200_response.dart';
+import 'package:api/src/model/update_user_by_id400_response.dart';
+import 'package:api/src/model/update_user_by_id400_response_error.dart';
+import 'package:api/src/model/update_user_by_id500_response.dart';
+import 'package:api/src/model/update_user_by_id500_response_error.dart';
+import 'package:api/src/model/update_user_by_id_request.dart';
 import 'package:api/src/model/user.dart';
 import 'package:api/src/model/user_response.dart';
 import 'package:api/src/model/users_list_response.dart';
@@ -95,6 +101,24 @@ ReturnType deserialize<ReturnType, BaseType>(dynamic value, String targetType,
           as ReturnType;
     case 'UpdateRsvpRequest':
       return UpdateRsvpRequest.fromJson(value as Map<String, dynamic>)
+          as ReturnType;
+    case 'UpdateUserById200Response':
+      return UpdateUserById200Response.fromJson(value as Map<String, dynamic>)
+          as ReturnType;
+    case 'UpdateUserById400Response':
+      return UpdateUserById400Response.fromJson(value as Map<String, dynamic>)
+          as ReturnType;
+    case 'UpdateUserById400ResponseError':
+      return UpdateUserById400ResponseError.fromJson(
+          value as Map<String, dynamic>) as ReturnType;
+    case 'UpdateUserById500Response':
+      return UpdateUserById500Response.fromJson(value as Map<String, dynamic>)
+          as ReturnType;
+    case 'UpdateUserById500ResponseError':
+      return UpdateUserById500ResponseError.fromJson(
+          value as Map<String, dynamic>) as ReturnType;
+    case 'UpdateUserByIdRequest':
+      return UpdateUserByIdRequest.fromJson(value as Map<String, dynamic>)
           as ReturnType;
     case 'User':
       return User.fromJson(value as Map<String, dynamic>) as ReturnType;

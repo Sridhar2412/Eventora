@@ -84,6 +84,7 @@ Class | Method | HTTP request | Description
 [*UsersApi*](doc/UsersApi.md) | [**createUser**](doc/UsersApi.md#createuser) | **POST** /api/users/save | Create a new user
 [*UsersApi*](doc/UsersApi.md) | [**getAllUsers**](doc/UsersApi.md#getallusers) | **GET** /api/users/list | Get all users
 [*UsersApi*](doc/UsersApi.md) | [**getUserById**](doc/UsersApi.md#getuserbyid) | **GET** /api/users/{id} | Get user by ID
+[*UsersApi*](doc/UsersApi.md) | [**updateUserById**](doc/UsersApi.md#updateuserbyid) | **PATCH** /api/users/{id} | Update user information
 
 
 ## Documentation For Models
@@ -108,6 +109,12 @@ Class | Method | HTTP request | Description
  - [PredefinedResponse](doc/PredefinedResponse.md)
  - [RsvpStatusResponse](doc/RsvpStatusResponse.md)
  - [UpdateRsvpRequest](doc/UpdateRsvpRequest.md)
+ - [UpdateUserById200Response](doc/UpdateUserById200Response.md)
+ - [UpdateUserById400Response](doc/UpdateUserById400Response.md)
+ - [UpdateUserById400ResponseError](doc/UpdateUserById400ResponseError.md)
+ - [UpdateUserById500Response](doc/UpdateUserById500Response.md)
+ - [UpdateUserById500ResponseError](doc/UpdateUserById500ResponseError.md)
+ - [UpdateUserByIdRequest](doc/UpdateUserByIdRequest.md)
  - [User](doc/User.md)
  - [UserResponse](doc/UserResponse.md)
  - [UsersListResponse](doc/UsersListResponse.md)

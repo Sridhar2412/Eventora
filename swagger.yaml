@@ -414,6 +414,107 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
+    patch:
+      operationId: 'updateUserById'
+      summary: Update user information
+      description: Updates user details like mobile, fullname, email, password, etc.
+      tags:
+        - Users
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The user ID to update.
+          schema:
+            type: string
+      requestBody:
+        description: User information to update
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mobile:
+                  type: string
+                  example: "1234567890"
+                fullname:
+                  type: string
+                  example: "John Doe"
+                email:
+                  type: string
+                  example: "johndoe@example.com"
+                password:
+                  type: string
+                  example: "newpassword123"
+                dob:
+                  type: string
+                  format: date
+                  example: "1990-01-01"
+                role:
+                  type: string
+                  example: "ADMIN"
+                  enum: ['ADMIN', 'ORGANIZER', 'USER']
+                organization:
+                  type: string
+                  example: "Acme Corp"
+              required: []
+      responses:
+        '200':
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "OK"
+                  code:
+                    type: string
+                    example: "200"
+                  data:
+                    type: string
+                    example: "User updated successfully"
+        '400':
+          description: Bad Request - Invalid data or user not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "ERROR"
+                  code:
+                    type: string
+                    example: "400"
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: "User not found"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "ERROR"
+                  code:
+                    type: string
+                    example: "500"
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: "Unexpected error occurred"
+
   /api/users/save:
     post:
       operationId: 'createUser'

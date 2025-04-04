@@ -24,6 +24,9 @@ class RegisterNotifier extends StateNotifier<RegisterState> {
   final mobileCtrl = TextEditingController();
   final passwordCtrl = TextEditingController();
   final confirmPasswordCtrl = TextEditingController();
+  final dobCtrl = TextEditingController();
+  final roleCtrl = TextEditingController();
+  final organizationCtrl = TextEditingController();
 
   final registerOtpBox = List.generate(
     6,
@@ -40,6 +43,9 @@ class RegisterNotifier extends StateNotifier<RegisterState> {
     passwordCtrl.dispose();
     confirmPasswordCtrl.dispose();
     pageCtrl.dispose();
+    dobCtrl.dispose();
+    roleCtrl.dispose();
+    organizationCtrl.dispose();
     super.dispose();
   }
 
@@ -49,6 +55,9 @@ class RegisterNotifier extends StateNotifier<RegisterState> {
     mobileCtrl.clear();
     passwordCtrl.clear();
     confirmPasswordCtrl.clear();
+    roleCtrl.clear();
+    organizationCtrl.clear();
+    dobCtrl.clear();
   }
 
   PageController pageCtrl = PageController();

@@ -54,7 +54,7 @@ class _MainPageState extends ConsumerState<MainPage> {
           HomeRoute(),
           MyEventsRoute(),
           ExploreRoute(),
-          HomeRoute(),
+          ProfileRoute(),
         ],
         bottomNavigationBuilder: (context, tabsRouter) => BottomNavBar(
           selected: tabsRouter.activeIndex,

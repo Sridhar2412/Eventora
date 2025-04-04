@@ -16,4 +16,8 @@ class TokenNotifier extends _$TokenNotifier {
     await ref.read(sharedPrefProvider).saveToken(token);
     state = token;
   }
+
+  void cleanToken() async {
+    await ref.read(sharedPrefProvider).clearAll();
+  }
 }

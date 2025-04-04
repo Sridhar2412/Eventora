@@ -81,6 +81,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         controller: notifier.usernameCtrl,
                         keyboardType: TextInputType.emailAddress,
                         labelText: 'Email*',
+                        noBorder: true,
                         validator: (String? email) {
                           if (email == null || email.isEmpty) {
                             return 'Please enter your email';
@@ -101,6 +102,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         controller: notifier.passwordCtrl,
                         hintText: 'Password*',
                         passwordVisible: visible,
+                        noBorder: true,
                         validator: (value) {
                           if (value == null || value.isEmpty == true) {
                             return 'Please enter your password';

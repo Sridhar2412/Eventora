@@ -11,6 +11,10 @@ import 'package:dio/dio.dart';
 
 import 'package:api/src/model/create_user_request.dart';
 import 'package:api/src/model/error.dart';
+import 'package:api/src/model/update_user_by_id200_response.dart';
+import 'package:api/src/model/update_user_by_id400_response.dart';
+import 'package:api/src/model/update_user_by_id500_response.dart';
+import 'package:api/src/model/update_user_by_id_request.dart';
 import 'package:api/src/model/user_response.dart';
 import 'package:api/src/model/users_list_response.dart';
 
@@ -247,6 +251,101 @@ class UsersApi {
     }
 
     return Response<UserResponse>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// Update user information
+  /// Updates user details like mobile, fullname, email, password, etc.
+  ///
+  /// Parameters:
+  /// * [id] - The user ID to update.
+  /// * [updateUserByIdRequest] - User information to update
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [UpdateUserById200Response] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<UpdateUserById200Response>> updateUserById({
+    required String id,
+    required UpdateUserByIdRequest updateUserByIdRequest,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/api/users/{id}'.replaceAll('{' r'id' '}', id.toString());
+    final _options = Options(
+      method: r'PATCH',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[],
+        ...?extra,
+      },
+      contentType: 'application/json',
+      validateStatus: validateStatus,
+    );
+
+    dynamic _bodyData;
+
+    try {
+      _bodyData = jsonEncode(updateUserByIdRequest);
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _options.compose(
+          _dio.options,
+          _path,
+        ),
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    final _response = await _dio.request<Object>(
+      _path,
+      data: _bodyData,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    UpdateUserById200Response? _responseData;
+
+    try {
+      final rawData = _response.data;
+      _responseData = rawData == null
+          ? null
+          : deserialize<UpdateUserById200Response, UpdateUserById200Response>(
+              rawData, 'UpdateUserById200Response',
+              growable: true);
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<UpdateUserById200Response>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

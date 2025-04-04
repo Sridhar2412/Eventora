@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**createUser**](UsersApi.md#createuser) | **POST** /api/users/save | Create a new user
 [**getAllUsers**](UsersApi.md#getallusers) | **GET** /api/users/list | Get all users
 [**getUserById**](UsersApi.md#getuserbyid) | **GET** /api/users/{id} | Get user by ID
+[**updateUserById**](UsersApi.md#updateuserbyid) | **PATCH** /api/users/{id} | Update user information
 
 
 # **createUser**
@@ -135,6 +136,51 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **updateUserById**
+> UpdateUserById200Response updateUserById(id, updateUserByIdRequest)
+
+Update user information
+
+Updates user details like mobile, fullname, email, password, etc.
+
+### Example
+```dart
+import 'package:api/api.dart';
+
+final api = Api().getUsersApi();
+final String id = id_example; // String | The user ID to update.
+final UpdateUserByIdRequest updateUserByIdRequest = ; // UpdateUserByIdRequest | User information to update
+
+try {
+    final response = api.updateUserById(id, updateUserByIdRequest);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling UsersApi->updateUserById: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| The user ID to update. | 
+ **updateUserByIdRequest** | [**UpdateUserByIdRequest**](UpdateUserByIdRequest.md)| User information to update | 
+
+### Return type
+
+[**UpdateUserById200Response**](UpdateUserById200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

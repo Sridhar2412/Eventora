@@ -72,6 +72,7 @@ class _HomePageState extends ConsumerState<RegisterPage> {
                   InputFieldCard(
                     child: CustomFormField(
                       controller: notifier.nameCtrl,
+                      noBorder: true,
                       labelText: 'Your name*',
                       maxLength: 30,
                       inputFormatters: [
@@ -91,12 +92,14 @@ class _HomePageState extends ConsumerState<RegisterPage> {
                   const Gap(20),
                   InputFieldCard(
                     child: CustomFormField.email(
+                      noBorder: true,
                       controller: notifier.emailCtrl,
                     ).pad(top: 10, left: 20, right: 20, bottom: 10),
                   ),
                   const Gap(20),
                   InputFieldCard(
                     child: CustomFormField.phone(
+                      noBorder: true,
                       controller: notifier.mobileCtrl,
                       hintText: 'Enter Phone number',
                     ).pad(top: 10, left: 20, right: 20, bottom: 10),
@@ -104,6 +107,7 @@ class _HomePageState extends ConsumerState<RegisterPage> {
                   const Gap(20),
                   InputFieldCard(
                     child: CustomFormField.password(
+                      noBorder: true,
                       controller: notifier.passwordCtrl,
                       hintText: 'Password*',
                       passwordVisible: visible,
@@ -130,6 +134,7 @@ class _HomePageState extends ConsumerState<RegisterPage> {
                   const Gap(20),
                   InputFieldCard(
                     child: CustomFormField.password(
+                      noBorder: true,
                       controller: notifier.confirmPasswordCtrl,
                       hintText: 'Confirm Password*',
                       passwordVisible: confirm,
@@ -156,6 +161,63 @@ class _HomePageState extends ConsumerState<RegisterPage> {
                     ).pad(top: 10, left: 20, bottom: 10),
                   ),
                   const Gap(20),
+                  InputFieldCard(
+                    child: CustomFormField(
+                      controller: notifier.roleCtrl,
+                      noBorder: true,
+                      labelText: 'Role',
+                      maxLength: 30,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                          RegExp(r'[A-Za-z. ]'),
+                        ),
+                      ],
+                      validator: (String? data) {
+                        if (data == null || data.trim().isEmpty == true) {
+                          return 'Please enter role';
+                        }
+
+                        return null;
+                      },
+                    ).pad(top: 10, left: 20, right: 20, bottom: 10),
+                  ),
+                  const Gap(20),
+                  InputFieldCard(
+                    child: CustomFormField.date(
+                      context: context,
+                      controller: notifier.dobCtrl,
+                      hintText: 'DOB',
+                      firstDate: DateTime(DateTime.now().year - 70),
+                      lastDate: DateTime(DateTime.now().year + 70),
+                      onChanged: (val) {
+                        // notifier.dobCtrl.text = val;
+                        // notifier.dobCtrl.text.logError();
+                        // setState(() {});
+                      },
+                    ).pad(top: 10, left: 20, right: 20, bottom: 10),
+                  ),
+                  const Gap(20),
+                  InputFieldCard(
+                    child: CustomFormField(
+                      controller: notifier.organizationCtrl,
+                      noBorder: true,
+                      labelText: 'Organization',
+                      maxLength: 30,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                          RegExp(r'[A-Za-z. ]'),
+                        ),
+                      ],
+                      validator: (String? data) {
+                        if (data == null || data.trim().isEmpty == true) {
+                          return 'Please enter organization';
+                        }
+
+                        return null;
+                      },
+                    ).pad(top: 10, left: 20, right: 20, bottom: 10),
+                  ),
+                  const Gap(40),
                   Consumer(
                     builder: (context, ref, child) {
                       // final registrationState =
@@ -164,8 +226,9 @@ class _HomePageState extends ConsumerState<RegisterPage> {
                       //   return const AppLoader();
                       // }
                       return CustomFilledButton(
+                        radius: 10,
                         color: AppColor.primary,
-                        size: Size(context.width, 50),
+                        size: Size(context.width, 60),
                         title: 'Proceed',
                         onTap: () async {
                           if (notifier.registerForm.currentState?.validate() ==

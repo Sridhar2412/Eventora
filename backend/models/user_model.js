@@ -1,40 +1,66 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const {dbName, dbHost, dbPort, dbUser, dbPass, jwtSecret} = require('../services/config')
+const { Sequelize, DataTypes } = require("sequelize");
+const {
+  dbName,
+  dbHost,
+  dbPort,
+  dbUser,
+  dbPass,
+  jwtSecret,
+} = require("../services/config");
 
 // Initialize Sequelize with MySQL connection
-const sequelize = new Sequelize(`mysql://${dbUser}:${dbPass}@${dbHost}:${dbPort}/${dbName}`); // Replace with your DB credentials
+const sequelize = new Sequelize(
+  `mysql://${dbUser}:${dbPass}@${dbHost}:${dbPort}/${dbName}`
+); // Replace with your DB credentials
 
 // Define the User model
-const User = sequelize.define('User', {
-  userId: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
+const User = sequelize.define(
+  "User",
+  {
+    userId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    mobile: {
+      type: DataTypes.STRING(15), // Use STRING for mobile numbers
+      allowNull: false, // Mobile should not be null
+    },
+    fullname: {
+      type: DataTypes.STRING(255),
+      allowNull: false, // This field cannot be null
+    },
+    email: {
+      type: DataTypes.STRING(100),
+      allowNull: false, // This field cannot be null
+    },
+    dob: {
+      type: DataTypes.DATE,
+      allowNull: false, // This field cannot be null
+    },
+    role: {
+      type: DataTypes.STRING(255),
+      allowNull: false, // This field cannot be null
+    },
+    organization: {
+      type: DataTypes.STRING(255),
+      allowNull: false, // This field cannot be null
+    },
+    password: {
+      type: DataTypes.STRING(100),
+      allowNull: false, // This field cannot be null
+    },
   },
-  mobile: {
-    type: DataTypes.STRING(15),  // Use STRING for mobile numbers
-    allowNull: false,  // Mobile should not be null
-  },
-  fullname: {
-    type: DataTypes.STRING(255),
-    allowNull: false, // This field cannot be null
-  },
-  email: {
-    type: DataTypes.STRING(100),
-    allowNull: false, // This field cannot be null
-  }, 
-  password: {
-    type: DataTypes.STRING(100),
-    allowNull: false, // This field cannot be null
-  },
-}, {
-  tableName: 'users', // This is the name of your table
-  timestamps: false, // If you don't want the `createdAt` and `updatedAt` fields
-});
+  {
+    tableName: "users", // This is the name of your table
+    timestamps: false, // If you don't want the `createdAt` and `updatedAt` fields
+  }
+);
 
 // Synchronize the model with the database (creates table if it doesn't exist)
-sequelize.sync()
-  .then(() => console.log('User table has been synced successfully.'))
-  .catch(err => console.log('Error syncing User table:', err));
+sequelize
+  .sync()
+  .then(() => console.log("User table has been synced successfully."))
+  .catch((err) => console.log("Error syncing User table:", err));
 
 module.exports = User;

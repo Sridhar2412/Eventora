@@ -353,14 +353,17 @@ class CustomFormField extends ConsumerStatefulWidget with FormValidationMixin {
     bool? isCompulsory,
     bool? isError,
     TextStyle? style,
+    bool? noBorder,
   }) =>
       CustomFormField(
+        noBorder: noBorder,
         onChanged: onChanged,
         controller: controller,
         prefixIcon: prefixIcon,
         keyboardType: TextInputType.number,
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         label: hintText ?? 'Enter mobile number',
+        hintText: hintText ?? 'Enter mobile number',
         maxLength: 10,
         validator: validator ??
             (String? phone) {

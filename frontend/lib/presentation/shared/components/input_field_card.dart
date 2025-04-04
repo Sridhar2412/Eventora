@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../theme/config/app_color.dart';
 import '../../theme/config/app_style.dart';
 
@@ -9,6 +10,7 @@ class InputFieldCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
+      height: 60,
       decoration: BoxDecoration(
         boxShadow: AppStyle.shadow,
         color: AppColor.white,
