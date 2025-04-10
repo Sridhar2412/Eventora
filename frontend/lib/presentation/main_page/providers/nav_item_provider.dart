@@ -5,13 +5,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final navItemsProvider = Provider<List<NavData>>((ref) {
   return [
     NavData(
-        label: 'Dashboard',
+        label: 'Home',
         activeIcon: const Icon(
-          Icons.dashboard,
+          Icons.home_outlined,
           color: AppColor.primary,
         ),
         inactiveIcon: const Icon(
-          Icons.dashboard,
+          Icons.home_outlined,
           color: AppColor.grey,
         )),
     NavData(
@@ -35,7 +35,7 @@ final navItemsProvider = Provider<List<NavData>>((ref) {
           color: AppColor.grey,
         )),
     NavData(
-        label: 'Settings',
+        label: 'Profile',
         activeIcon: const Icon(
           Icons.person,
           color: AppColor.primary,

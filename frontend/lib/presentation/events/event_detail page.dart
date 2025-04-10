@@ -49,7 +49,7 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
     final check = ref.watch(rsvpCheckProvider(widget.eventId));
     return Scaffold(
       bottomNavigationBar: CustomFilledButton(
-        radius: 10,
+        radius: 15,
         onTap: () async {
           final data = await notifier.updateRsvpStatus(
               eventId: widget.eventId, userId: 1);

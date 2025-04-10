@@ -86,7 +86,8 @@ class _MyEventListingState extends ConsumerState<MyEventListing>
                             child: Align(
                               child: Text(
                                 'No Events Found',
-                                style: AppTextTheme.label12,
+                                style: AppTextTheme.medium14
+                                    .copyWith(color: AppColor.primary),
                               ),
                             ),
                           ),
@@ -146,7 +147,7 @@ class _MyEventListingState extends ConsumerState<MyEventListing>
                                     ).padAll(15),
                                   ],
                                 )).padBottom(),
-                          ).padHor();
+                          );
                         },
                       ),
               ),

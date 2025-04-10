@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
-import '../../../core/extension/context.dart';
 import '../../theme/config/app_color.dart';
 import '../gen/assets.gen.dart';
 import '../providers/router.dart';
@@ -56,7 +55,7 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
       ),
       title: Text(
         title,
-        style: AppTextTheme.semiBold20,
+        style: AppTextTheme.semiBold20.copyWith(color: AppColor.white),
       ),
       leadingWidth: leadingWidth ?? 70,
       automaticallyImplyLeading: false,
@@ -64,7 +63,7 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
       backgroundColor: backgroundColor ?? AppColor.white,
       elevation: 0,
       actions: actions,
-      centerTitle: false,
+      centerTitle: true,
     );
   }
 

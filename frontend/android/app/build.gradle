@@ -58,17 +58,17 @@ android {
     productFlavors {
         development {
             dimension "default"
-            resValue "string", "app_name", "ChatApp"
+            resValue "string", "app_name", "Eventora"
             applicationIdSuffix ".dev"
         }
         staging {
             dimension "default"
-            resValue "string", "app_name", "ChatApp Staging"
+            resValue "string", "app_name", "Eventora Staging"
             applicationIdSuffix ".stag"
         }
         production {
             dimension "default"
-            resValue "string", "app_name", "ChatApp"
+            resValue "string", "app_name", "Eventora"
         }
     }
 }

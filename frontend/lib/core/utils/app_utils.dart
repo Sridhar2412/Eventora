@@ -62,6 +62,19 @@ class AppUtils {
     return temp;
   }
 
+  static CreateUserRequestRoleEnum getUserRole(String role) {
+    switch (role) {
+      case 'User':
+        return CreateUserRequestRoleEnum.USER;
+
+      case 'Admin':
+        return CreateUserRequestRoleEnum.ADMIN;
+
+      default:
+        return CreateUserRequestRoleEnum.USER; // Return null if no match
+    }
+  }
+
   static EventListByCategoryRequestCategoryEnum getCategory(String category) {
     switch (category) {
       case 'Social':

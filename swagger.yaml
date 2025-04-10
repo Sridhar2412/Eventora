@@ -29,6 +29,17 @@ components:
         password:
           type: string
           example: 'password123'
+        dob:
+          type: string
+          format: date
+          example: "1990-01-01"
+        role:
+          type: string
+          example: "ADMIN"
+          enum: ['ADMIN', 'ORGANIZER', 'USER']
+        organization:
+          type: string
+          example: "Acme Corp"
 
     # Request Body for Creating User
     CreateUserRequest:
@@ -46,6 +57,17 @@ components:
         password:
           type: string
           example: 'password123'
+        dob:
+          type: string
+          format: date
+          example: "1990-01-01"
+        role:
+          type: string
+          example: "ADMIN"
+          enum: ['ADMIN', 'ORGANIZER', 'USER']
+        organization:
+          type: string
+          example: "Acme Corp"
 
     # Request Body for Login
     LoginRequest:
@@ -364,6 +386,40 @@ components:
 
 paths:
   # User Paths
+  /api/users:
+    get:
+      operationId: 'getUserByToken'
+      tags:
+        - 'Users'
+      summary: 'Get user by token'
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          description: 'Bearer token for authentication.'
+          schema:
+            type: string
+            example: 'Bearer your-jwt-token-here'
+      responses:
+        '200':
+          description: 'Successfully fetched user data'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '401':
+          description: 'Unauthorized - Invalid or missing token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '400':
+          description: 'Bad Request - Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
   /api/users/list:
     get:
       operationId: 'getAllUsers'

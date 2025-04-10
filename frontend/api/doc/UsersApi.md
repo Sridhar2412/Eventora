@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**createUser**](UsersApi.md#createuser) | **POST** /api/users/save | Create a new user
 [**getAllUsers**](UsersApi.md#getallusers) | **GET** /api/users/list | Get all users
 [**getUserById**](UsersApi.md#getuserbyid) | **GET** /api/users/{id} | Get user by ID
+[**getUserByToken**](UsersApi.md#getuserbytoken) | **GET** /api/users | Get user by token
 [**updateUserById**](UsersApi.md#updateuserbyid) | **PATCH** /api/users/{id} | Update user information
 
 
@@ -124,6 +125,47 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The ID of the user | 
+
+### Return type
+
+[**UserResponse**](UserResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getUserByToken**
+> UserResponse getUserByToken(authorization)
+
+Get user by token
+
+### Example
+```dart
+import 'package:api/api.dart';
+
+final api = Api().getUsersApi();
+final String authorization = Bearer your-jwt-token-here; // String | Bearer token for authentication.
+
+try {
+    final response = api.getUserByToken(authorization);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling UsersApi->getUserByToken: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| Bearer token for authentication. | 
 
 ### Return type
 

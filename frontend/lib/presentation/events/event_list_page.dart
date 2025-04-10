@@ -36,14 +36,14 @@ class _EventListPageState extends ConsumerState<EventListPage> {
     final state = ref.watch(eventNotifierProvider);
 
     return Scaffold(
-      backgroundColor: AppColor.whiteBackground,
+      backgroundColor: AppColor.white,
       body: CustomScrollView(
         slivers: [
           SliverGap(40),
           SliverToBoxAdapter(
             child: Text(
               'Event List Page',
-              style: AppTextTheme.semiBold20,
+              style: AppTextTheme.semiBold20.copyWith(color: AppColor.primary),
             ).padHor(),
           ),
           SliverGap(20),

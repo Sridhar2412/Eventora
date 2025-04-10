@@ -1,16 +1,13 @@
-import 'package:dio/dio.dart';
-import 'package:flutter_master/presentation/routes/app_router.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'dart:async';
 
-import '../../core/extension/log.dart';
-import '../../core/providers/token_provider.dart';
-import '../../core/utils/app_utils.dart';
-import '../../presentation/shared/providers/router.dart';
-import '../model/api_res.dart';
-import '../repository/auth_repo_impl.dart';
-import '../source/local/shar_pref.dart';
-import 'error_interceptor.dart';
-import 'log_interceptor.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter_master/core/extension/log.dart';
+import 'package:flutter_master/core/providers/token_provider.dart';
+import 'package:flutter_master/data/helper/api_client.dart';
+import 'package:flutter_master/data/source/local/shar_pref.dart';
+import 'package:flutter_master/presentation/routes/app_router.dart';
+import 'package:flutter_master/presentation/shared/providers/router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TokenInterceptorsWrapper extends QueuedInterceptorsWrapper {
   TokenInterceptorsWrapper(this._ref);
@@ -21,66 +18,79 @@ class TokenInterceptorsWrapper extends QueuedInterceptorsWrapper {
     DioException err,
     ErrorInterceptorHandler handler,
   ) async {
-    //Check unauthenticated
-    if (err.response?.statusCode == 401) {
-      final res = ApiRes.fromJson(err.response?.data);
-      if (res.error?.type == 'TOKEN_EXPIRED') {
-        'TOKEN_EXPIRED'.logError();
-        final result = await _ref.read(authRepoProvider).refreshToken(''
-            // _ref.read(
-            // tokenNotifierProvider.select((value) => value.refreshToken),
-            // ),
-            );
-        'TOKEN_EXPIREDaas'.logError();
+    // Check for session & token expiry
+    final api = _ref.read(apiProvider).getAuthApi();
 
-        result.fold((error) {
-          return handler.reject(err);
-        }, (result) async {
-          await _ref.read(tokenNotifierProvider.notifier).updateToken(result);
-          final tempHeader = err.requestOptions.headers;
-          tempHeader['authorization'] = 'Bearer ${result.accessToken}';
-          try {
-            final dio = Dio();
-            dio.interceptors.addAll([
-              LogInterceptorsWrapper(),
-              ErrorInterceptorsWrapper(),
-            ]);
-            final res = await dio.request(
-              '${err.requestOptions.baseUrl}${err.requestOptions.path}',
-              data: err.requestOptions.data,
-              options: Options(
-                method: err.requestOptions.method,
-                headers: tempHeader,
-              ),
-            );
-            AppUtils.checkError(res.data, res.requestOptions).fold(
-              (error) {
-                return handler.reject(error);
-              },
-              (response) {
-                res.data = AppUtils.convertDataToMap(response);
-                return handler.resolve(res);
-              },
-            );
-          } on DioException catch (e) {
-            return handler.reject(e);
-          }
-        });
-      } else if (res.error?.type == 'SESSION_EXPIRED') {
-        'SESSION_EXPIRED'.logError();
-        await _ref.read(sharedPrefProvider).clearAll();
-        _ref.read(routerProvider).replaceAll([const LoginRoute()]);
-      }
-    } else {
+    // Handle 401 (unauthenticated) response
+    if (err.response?.statusCode != 401 || err.response?.data is! Map) {
       return handler.next(err);
     }
+
+    // Extract message from the response
+    final {'message': String? message} =
+        err.response?.data as Map<String, dynamic>;
+
+    // Read the current token
+    final token = _ref.read(tokenNotifierProvider);
+
+    // if (message == 'TOKEN_EXPIRED') {
+    //   // Refresh token if expired
+    //   final result = await api
+    //       .refreshesToken(
+    //         payload: AuthRequest(refreshToken: token.refreshToken ?? ''),
+    //       )
+    //       .guard<AuthResponse>();
+
+    //   print('Token refreshed: $result');
+
+    //   // Update the token in the provider
+    //   await _ref.read(tokenNotifierProvider.notifier).updateToken(result.tokens);
+
+    //   // Retry the failed request with the new token
+    //   try {
+    //     final dio = Dio();
+    //     final newToken = _ref.read(tokenNotifierProvider);
+
+    //     // Add interceptors to the new Dio instance
+    //     dio.interceptors.addAll([if (kDebugMode) LogInterceptor()]);
+
+    //     final res = await dio.fetch(
+    //       err.requestOptions.copyWith(
+    //         headers: {
+    //           ...err.requestOptions.headers,
+    //           'Authorization': 'Bearer ${newToken.accessToken}',
+    //         },
+    //       ),
+    //     );
+    //     handler.resolve(res);
+    //   } on DioException catch (e) {
+    //     return handler.reject(e);
+    //   }
+    // } else
+    if (message == 'SESSION_EXPIRED') {
+      // Handle session expiration (log out user)
+      'SESSION_EXPIRED'.logError();
+      await _ref.read(sharedPrefProvider).clearAll();
+      unawaited(_ref.read(routerProvider).replaceAll([const LoginRoute()]));
+      return;
+    }
+
+    // Continue with the error handling chain
+    return handler.next(err);
+  } 
+
+  @override
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    // Ensure the latest token is added to request headers
+    final token = _ref.read(tokenNotifierProvider);
+    if (token.accessToken != '') {
+      options.headers['Authorization'] = 'Bearer ${token.accessToken}';
+    }
+    return handler.next(options);
   }
 
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) =>
-      handler.next(options);
-
-  @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) =>
-      handler.next(response);
+  void onResponse(Response response, ResponseInterceptorHandler handler) {
+    return handler.next(response);
+  }
 }

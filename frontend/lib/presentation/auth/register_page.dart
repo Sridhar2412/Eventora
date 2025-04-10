@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_master/presentation/auth/providers/register_notifier.dart';
 import 'package:flutter_master/presentation/routes/app_router.dart';
 import 'package:flutter_master/presentation/shared/components/app_text_theme.dart';
+import 'package:flutter_master/presentation/shared/components/custom_dropdown_widget.dart';
 import 'package:flutter_master/presentation/shared/components/custom_filled_button.dart';
 import 'package:flutter_master/presentation/shared/components/custom_form_field.dart';
 import 'package:flutter_master/presentation/shared/components/input_field_card.dart';
@@ -58,22 +59,28 @@ class _HomePageState extends ConsumerState<RegisterPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Gap(context.heightByPercent(10.5)),
+            Gap(20),
             Form(
               key: notifier.registerForm,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const Gap(25),
                   Text(
-                    'Registration',
-                    style: AppTextTheme.semiBold18,
+                    'Register',
+                    style: AppTextTheme.semiBold25
+                        .copyWith(fontSize: 32, color: AppColor.primary),
                   ),
-                  const Gap(40),
+                  const Gap(10),
+                  Text(
+                    'Become a part of Eventora',
+                    style: AppTextTheme.label16.copyWith(color: AppColor.grey),
+                  ).padBottom(25),
                   InputFieldCard(
                     child: CustomFormField(
                       controller: notifier.nameCtrl,
                       noBorder: true,
-                      labelText: 'Your name*',
+                      hintText: 'Your name*',
                       maxLength: 30,
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(
@@ -162,23 +169,12 @@ class _HomePageState extends ConsumerState<RegisterPage> {
                   ),
                   const Gap(20),
                   InputFieldCard(
-                    child: CustomFormField(
-                      controller: notifier.roleCtrl,
+                    child: CustomDropDown(
                       noBorder: true,
-                      labelText: 'Role',
-                      maxLength: 30,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                          RegExp(r'[A-Za-z. ]'),
-                        ),
-                      ],
-                      validator: (String? data) {
-                        if (data == null || data.trim().isEmpty == true) {
-                          return 'Please enter role';
-                        }
-
-                        return null;
-                      },
+                      items: ['User', 'Admin'],
+                      hintText: 'Select role',
+                      onChanged: notifier.setRole,
+                      title: (item) => item,
                     ).pad(top: 10, left: 20, right: 20, bottom: 10),
                   ),
                   const Gap(20),
@@ -190,9 +186,9 @@ class _HomePageState extends ConsumerState<RegisterPage> {
                       firstDate: DateTime(DateTime.now().year - 70),
                       lastDate: DateTime(DateTime.now().year + 70),
                       onChanged: (val) {
-                        // notifier.dobCtrl.text = val;
+                        notifier.dobCtrl.text = val;
                         // notifier.dobCtrl.text.logError();
-                        // setState(() {});
+                        setState(() {});
                       },
                     ).pad(top: 10, left: 20, right: 20, bottom: 10),
                   ),
@@ -201,7 +197,7 @@ class _HomePageState extends ConsumerState<RegisterPage> {
                     child: CustomFormField(
                       controller: notifier.organizationCtrl,
                       noBorder: true,
-                      labelText: 'Organization',
+                      hintText: 'Organization',
                       maxLength: 30,
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(
@@ -234,7 +230,7 @@ class _HomePageState extends ConsumerState<RegisterPage> {
                           if (notifier.registerForm.currentState?.validate() ==
                               true) {
                             final data = await notifier.registerUser();
-                            if (data == true) {
+                            if (data == false) {
                               context.replaceRoute(const LoginRoute());
                             }
                           }

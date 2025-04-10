@@ -61,136 +61,143 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       onWillPop: _onWillPop,
       child: Scaffold(
         backgroundColor: AppColor.white,
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Gap(context.heightByPercent(16.4)),
-              Form(
-                key: notifier.loginFormKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Gap(context.heightByPercent(16.4)),
+            Form(
+              key: notifier.loginFormKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Gap(25),
+                  Text(
+                    'Login',
+                    style: AppTextTheme.semiBold25
+                        .copyWith(fontSize: 32, color: AppColor.primary),
+                  ),
+                  const Gap(10),
+                  Text(
+                    'Enter your email',
+                    style: AppTextTheme.label16.copyWith(color: AppColor.grey),
+                  ).padBottom(25),
+                  InputFieldCard(
+                    child: CustomFormField(
+                      controller: notifier.usernameCtrl,
+                      keyboardType: TextInputType.emailAddress,
+                      hintText: 'Email*',
+                      noBorder: true,
+                      validator: (String? email) {
+                        if (email == null || email.isEmpty) {
+                          return 'Please enter your email';
+                        }
+                        final regex =
+                            RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                        if (!regex.hasMatch(email)) {
+                          return 'Enter valid E-Mail';
+                        }
+
+                        return null;
+                      },
+                    ).pad(top: 10, left: 20, right: 20, bottom: 10),
+                  ),
+                  const Gap(15),
+                  InputFieldCard(
+                    child: CustomFormField.password(
+                      controller: notifier.passwordCtrl,
+                      hintText: 'Password*',
+                      passwordVisible: visible,
+                      noBorder: true,
+                      validator: (value) {
+                        if (value == null || value.isEmpty == true) {
+                          return 'Please enter your password';
+                        }
+                        if (value.length < 8) {
+                          return 'Password should atleast have 8 characters';
+                        }
+
+                        return null;
+                      },
+                    ).pad(top: 10, left: 20, bottom: 10),
+                  ),
+                  const Gap(25),
+                  CustomFilledButton(
+                      size: Size(context.width, 55),
+                      radius: 15,
+                      color: AppColor.primary,
+                      title: 'Proceed',
+                      onTap: () async {
+                        if (notifier.loginFormKey.currentState?.validate() ==
+                            true) {
+                          final data = await notifier.login();
+                          if (data == null) {
+                            ref
+                                .read(routerProvider)
+                                .replaceAll([const MainRoute()]);
+                          } else {
+                            SnackBar(
+                              content: Text(
+                                data,
+                                style: AppTextTheme.label14
+                                    .copyWith(color: AppColor.white),
+                              ),
+                              backgroundColor: AppColor.red,
+                            );
+                          }
+                        }
+                      }),
+                  const Gap(10),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     const Gap(25),
+                  //     GestureDetector(
+                  //       onTap: () {},
+                  //       child: Text(
+                  //         'Forgot Password?',
+                  //         style: AppTextTheme.label14.copyWith(
+                  //           color: AppColor.primary,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                ],
+              ).padHor(),
+            ),
+            const Gap(70),
+            Divider(
+              thickness: 1,
+              height: 1,
+              color: AppColor.black.withOpacity(0.2),
+            ),
+            const Gap(20),
+            Center(
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  style: AppTextTheme.label14,
+                  text: 'Not a user yet? ',
                   children: [
-                    Text(
-                      'Login',
-                      style: AppTextTheme.semiBold18,
-                    ),
-                    const Gap(40),
-                    InputFieldCard(
-                      child: CustomFormField(
-                        controller: notifier.usernameCtrl,
-                        keyboardType: TextInputType.emailAddress,
-                        labelText: 'Email*',
-                        noBorder: true,
-                        validator: (String? email) {
-                          if (email == null || email.isEmpty) {
-                            return 'Please enter your email';
-                          }
-                          final regex =
-                              RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-                          if (!regex.hasMatch(email)) {
-                            return 'Enter valid E-Mail';
-                          }
-
-                          return null;
+                    TextSpan(
+                      text: 'Click here',
+                      style: AppTextTheme.medium14
+                          .copyWith(color: AppColor.primary),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          context.replaceRoute(const RegisterRoute());
                         },
-                      ).pad(top: 10, left: 20, right: 20, bottom: 10),
                     ),
-                    const Gap(15),
-                    InputFieldCard(
-                      child: CustomFormField.password(
-                        controller: notifier.passwordCtrl,
-                        hintText: 'Password*',
-                        passwordVisible: visible,
-                        noBorder: true,
-                        validator: (value) {
-                          if (value == null || value.isEmpty == true) {
-                            return 'Please enter your password';
-                          }
-                          if (value.length < 8) {
-                            return 'Password should atleast have 8 characters';
-                          }
-
-                          return null;
-                        },
-                      ).pad(top: 10, left: 20, bottom: 10),
-                    ),
-                    const Gap(25),
-                    CustomFilledButton(
-                        color: AppColor.primary,
-                        title: 'Proceed',
-                        onTap: () async {
-                          if (notifier.loginFormKey.currentState?.validate() ==
-                              true) {
-                            final data = await notifier.login();
-                            if (data == null) {
-                              ref
-                                  .read(routerProvider)
-                                  .replaceAll([const MainRoute()]);
-                            } else {
-                              SnackBar(
-                                content: Text(
-                                  data,
-                                  style: AppTextTheme.label14
-                                      .copyWith(color: AppColor.white),
-                                ),
-                                backgroundColor: AppColor.red,
-                              );
-                            }
-                          }
-                        }),
-                    const Gap(10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Gap(25),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Text(
-                            'Forgot Password?',
-                            style: AppTextTheme.label14.copyWith(
-                              color: AppColor.primary,
-                            ),
-                          ),
-                        ),
-                      ],
+                    const TextSpan(
+                      text: ' to sign up',
                     ),
                   ],
-                ).padHor(),
-              ),
-              const Gap(70),
-              Divider(
-                thickness: 1,
-                height: 1,
-                color: AppColor.black.withOpacity(0.2),
-              ),
-              const Gap(20),
-              Center(
-                child: RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    style: AppTextTheme.label14,
-                    text: 'Not a member yet? ',
-                    children: [
-                      TextSpan(
-                        text: 'Click here',
-                        style: AppTextTheme.medium14
-                            .copyWith(color: AppColor.primary),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            context.replaceRoute(const RegisterRoute());
-                          },
-                      ),
-                      const TextSpan(
-                        text: ' to sign up',
-                      ),
-                    ],
-                  ),
                 ),
               ),
-              const Gap(20),
-            ],
-          ),
+            ),
+            const Gap(20),
+          ],
         ),
       ),
     );

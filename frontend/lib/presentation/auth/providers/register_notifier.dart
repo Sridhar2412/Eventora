@@ -1,4 +1,9 @@
+import 'package:api/api.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_master/core/extension/future.dart';
+import 'package:flutter_master/core/utils/app_utils.dart';
+import 'package:flutter_master/data/helper/api_client.dart';
+import 'package:flutter_master/presentation/auth/providers/profile_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // import '../../../data/model/otp_req.dart';
@@ -12,11 +17,13 @@ final registerNotifierProvider =
 });
 
 class RegisterNotifier extends StateNotifier<RegisterState> {
-  RegisterNotifier(this.ref) : super(const RegisterState());
+  RegisterNotifier(this.ref) : super(const RegisterState()) {
+    init();
+  }
 
   final Ref ref;
   late final AuthRepository _auth = ref.read(authRepoProvider);
-
+  late UsersApi _repo;
   final registerForm = GlobalKey<FormState>();
 
   final nameCtrl = TextEditingController();
@@ -34,6 +41,9 @@ class RegisterNotifier extends StateNotifier<RegisterState> {
       return TextEditingController();
     },
   );
+  void init() {
+    _repo = ref.read(apiProvider).getUsersApi();
+  }
 
   @override
   void dispose() {
@@ -66,28 +76,34 @@ class RegisterNotifier extends StateNotifier<RegisterState> {
     pageCtrl.jumpToPage(pageNumber);
   }
 
+  void setRole(String? role) {
+    if (role != null) {
+      state = state.copyWith(userRole: AppUtils.getUserRole(role));
+    }
+  }
+
   Future<bool> registerUser() async {
     bool response = false;
     state = state.copyWith(loading: true, error: '');
-    final result = await _auth.saveUser(
-        nameCtrl.text.trim(),
-        emailCtrl.text.trim(),
-        mobileCtrl.text.trim(),
-        confirmPasswordCtrl.text.trim());
 
-    result.fold(
-      (err) {
-        response = false;
-        state = state.copyWith(
-          error: err.message,
-          loading: false,
-        );
-      },
-      (result) {
-        response = true;
-        state = state.copyWith(loading: false, error: '');
-      },
-    );
+    final result = await _repo
+        .createUser(
+            createUserRequest: CreateUserRequest(
+          fullname: nameCtrl.text.trim(),
+          email: emailCtrl.text.trim(),
+          mobile: mobileCtrl.text.trim(),
+          password: confirmPasswordCtrl.text.trim(),
+          dob: DateTime.tryParse(dobCtrl.text.trim()) ?? DateTime.now(),
+          organization: organizationCtrl.text.trim(),
+          role: state.userRole,
+        ))
+        .guard<UserResponse>();
+
+    if (result.data != null) {
+      ref.read(profileNotifierProvider.notifier).setUser(result.data ?? User());
+    } else {
+      response = true;
+    }
     return response;
   }
 

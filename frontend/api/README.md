@@ -84,6 +84,7 @@ Class | Method | HTTP request | Description
 [*UsersApi*](doc/UsersApi.md) | [**createUser**](doc/UsersApi.md#createuser) | **POST** /api/users/save | Create a new user
 [*UsersApi*](doc/UsersApi.md) | [**getAllUsers**](doc/UsersApi.md#getallusers) | **GET** /api/users/list | Get all users
 [*UsersApi*](doc/UsersApi.md) | [**getUserById**](doc/UsersApi.md#getuserbyid) | **GET** /api/users/{id} | Get user by ID
+[*UsersApi*](doc/UsersApi.md) | [**getUserByToken**](doc/UsersApi.md#getuserbytoken) | **GET** /api/users | Get user by token
 [*UsersApi*](doc/UsersApi.md) | [**updateUserById**](doc/UsersApi.md#updateuserbyid) | **PATCH** /api/users/{id} | Update user information
 
 

@@ -18,7 +18,7 @@ class App extends ConsumerWidget {
           child: child!,
         );
       },
-      title: 'ChatApp',
+      title: 'Eventora',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.light,

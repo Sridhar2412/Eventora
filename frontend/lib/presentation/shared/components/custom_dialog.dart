@@ -62,8 +62,8 @@ class CustomDialog extends StatelessWidget {
                     },
                     child: Container(
                       height: 50,
-                      decoration: const BoxDecoration(
-                        color: AppColor.red,
+                      decoration: BoxDecoration(
+                        color: AppColor.primary.withOpacity(0.5),
                         borderRadius:
                             BorderRadius.only(bottomLeft: Radius.circular(6)),
                       ),
@@ -87,7 +87,7 @@ class CustomDialog extends StatelessWidget {
                     child: Container(
                       height: 50,
                       decoration: const BoxDecoration(
-                        color: AppColor.green,
+                        color: AppColor.primary,
                         borderRadius: BorderRadius.only(
                           bottomRight: Radius.circular(6),
                         ),

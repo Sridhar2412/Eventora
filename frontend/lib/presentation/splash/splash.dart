@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_master/core/providers/token_provider.dart';
 import 'package:flutter_master/data/source/local/shar_pref.dart';
+import 'package:flutter_master/presentation/shared/gen/assets.gen.dart';
 import 'package:flutter_master/presentation/theme/config/app_color.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -48,9 +49,9 @@ class _SplashPageState extends ConsumerState<SplashPage> {
               width: context.width,
             ),
           ),
-          const Positioned(
+          Positioned(
             child: Center(
-              child: Placeholder(),
+              child: Assets.icons.logo.image(),
             ),
           ),
         ],
@@ -63,6 +64,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
     final router = ref.read(routerProvider);
     final token = await ref.read(sharedPrefProvider).getToken();
     if (token == null) {
+      await Future.delayed(Duration(seconds: 3));
       ref.read(routerProvider).replace(const LoginRoute());
       return;
     }
@@ -70,7 +72,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
       const Duration(seconds: 2),
       () async {
         final token = await ref.read(sharedPrefProvider).getToken();
-        if (token != null) {
+        if (token != null && token.accessToken.isNotEmpty) {
           await ref.read(tokenNotifierProvider.notifier).updateToken(token);
           await Future.delayed(const Duration(seconds: 1));
           await router.replaceAll([const MainRoute()]);

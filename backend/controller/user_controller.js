@@ -65,8 +65,9 @@ const getUserById = async (req, res) => {
 
 // Controller function to handle POST /Users request
 const saveUser = async (req, res) => {
-  const { fullname, email, mobile, password, dob, role, orgaization } =
+  const { fullname, email, mobile, password, dob, role, organization } =
     req.body;
+  console.log(req.body);
   try {
     const user = await User.create({
       mobile,
@@ -75,9 +76,9 @@ const saveUser = async (req, res) => {
       password,
       dob,
       role,
-      orgaization,
+      organization,
     });
-    res.status(201).json(user); // Return the created User
+    res.status(200).json({ status: "OK", code: "200", data: user }); // Return the created User
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to create User" });

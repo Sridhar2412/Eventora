@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_master/core/extension/context.dart';
 import 'package:flutter_master/core/extension/widget.dart';
+import 'package:flutter_master/presentation/auth/providers/profile_notifier.dart';
 import 'package:flutter_master/presentation/home/provider/events_notifier.dart';
 import 'package:flutter_master/presentation/routes/app_router.dart';
 import 'package:flutter_master/presentation/shared/components/app_text_theme.dart';
@@ -27,6 +28,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await ref.read(profileNotifierProvider.notifier).getUserByToken();
       await ref.read(eventNotifierProvider.notifier).getEventList();
       await ref.read(eventNotifierProvider.notifier).getUpcomingEventList();
       await ref.read(predefinedListNotifierProvider.notifier).getPredefinedList(
@@ -34,20 +36,6 @@ class _HomePageState extends ConsumerState<HomePage> {
     });
   }
 
-  List<String> categoiryColorList = [
-    "FF6F61", // Social (Soft coral, vibrant and engaging)
-    "4CAF50", // Sports (Lively green, fresh and energetic)
-    "00BCD4", // Travel (Refreshing teal, representing the open sky and ocean)
-    "3F51B5", // Business (Sophisticated indigo, professional and reliable)
-    "FF4081", // Tech (Bright pinkish-red, modern and dynamic)
-    "FF9800", // Community (Warm amber, inviting and social)
-    "9C27B0", // Games (Playful purple, creative and fun)
-    "FFEB3B", // Dancing (Bright yellow, energetic and lively)
-    "2196F3", // Music (Vibrant blue, soothing yet energetic)
-    "673AB7", // Art (Creative purple, artistic and expressive)
-    "4CAF50", // Education (Refreshing green, symbolizes growth and learning)
-    "F44336" // Political (Bold red, strong and impactful)
-  ];
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(eventNotifierProvider);
@@ -60,8 +48,14 @@ class _HomePageState extends ConsumerState<HomePage> {
           children: [
             Gap(40),
             Text(
+              'Home',
+              style: AppTextTheme.semiBold25.copyWith(color: AppColor.primary),
+              textAlign: TextAlign.left,
+            ),
+            Gap(20),
+            Text(
               'Upcoming Events',
-              style: AppTextTheme.semiBold16,
+              style: AppTextTheme.semiBold16.copyWith(color: AppColor.primary),
             ).pad(bottom: 10),
             SizedBox(
               height: 280,
@@ -117,7 +111,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             Gap(20),
             Text(
               'Categories',
-              style: AppTextTheme.semiBold16,
+              style: AppTextTheme.semiBold16.copyWith(color: AppColor.primary),
             ).pad(bottom: 10),
             SizedBox(
               height: context.heightByPercent(20),
@@ -135,8 +129,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 predefinedState.data.categoryList[index].name ??
                                     '')),
                         child: CustomCard(
-                            backgroundColor: Color(
-                                int.parse('0xFF${categoiryColorList[index]}')),
+                            backgroundColor: AppColor.primary.withOpacity(0.7),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -154,7 +147,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             Gap(20),
             Text(
               'Recomendations',
-              style: AppTextTheme.semiBold16,
+              style: AppTextTheme.semiBold16.copyWith(color: AppColor.primary),
             ).pad(bottom: 10),
             SizedBox(
               height: 280,

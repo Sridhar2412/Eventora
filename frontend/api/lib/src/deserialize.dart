@@ -77,8 +77,8 @@ ReturnType deserialize<ReturnType, BaseType>(dynamic value, String targetType,
     case 'LoginRequest':
       return LoginRequest.fromJson(value as Map<String, dynamic>) as ReturnType;
     case 'LoginResponse':
-      return LoginResponse.fromJson(value as Map<String, dynamic>)
-          as ReturnType;
+      return LoginResponse.fromJson(
+          {"status": "OK", "code": 200, "data": value}) as ReturnType;
     case 'LoginResponseData':
       return LoginResponseData.fromJson(value as Map<String, dynamic>)
           as ReturnType;
@@ -123,7 +123,8 @@ ReturnType deserialize<ReturnType, BaseType>(dynamic value, String targetType,
     case 'User':
       return User.fromJson(value as Map<String, dynamic>) as ReturnType;
     case 'UserResponse':
-      return UserResponse.fromJson(value as Map<String, dynamic>) as ReturnType;
+      return UserResponse.fromJson({"status": "OK", "code": 200, "data": value})
+          as ReturnType;
     case 'UsersListResponse':
       return UsersListResponse.fromJson(value as Map<String, dynamic>)
           as ReturnType;
